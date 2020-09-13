@@ -1,4 +1,4 @@
-# Assessmeent of Trusted Internet Connection 3.0 Compliance (ATICC) Dashboard
+# Assessment of Trusted Internet Connection 3.0 Compliance (ATICC)
 ---
 ## The Goal of this project is
 TBD
