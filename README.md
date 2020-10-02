@@ -1,3 +1,4 @@
+[![Gitter](https://badges.gitter.im/ATICC/community.svg)](https://gitter.im/ATICC/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 # Assessment of Trusted Internet Connection 3.0 Compliance (ATICC)
 ---
 ## The Goal of this project is
