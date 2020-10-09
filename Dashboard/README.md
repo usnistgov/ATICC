@@ -9,4 +9,4 @@ Run application using mvn spring-boot:run or directly running Application class 
 Open http://localhost:8080/ in browser
 
 ## Acknowledgement for reused code if any
-TBD
+Stripped down version of [PMAdminTool](https://github.com/PM-Master/PMAdminTool)
