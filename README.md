@@ -4,20 +4,10 @@
 
 ---
 ## The Goal of this project is
-
 Design and implement a dashboard and test suite that assesses the Software Define Perimeter (SDP) environment's compliance against the TIC 3.0 requirements.
 
-## Code status, pre-release, production.
-TBD
-
 ## Installation Process
-
-Import the project to the IDE of your choosing as a Maven project.
-Run application using mvn spring-boot:run or directly running Application class from your IDE.
-Open http://localhost:8080/ in browser
+For Installation Instructions for either part, please refer to the README's in each folder
 
 ## Contact Information
-TBD
-
-## Acknowledgement for reused code if any
 TBD
