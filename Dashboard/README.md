@@ -1,5 +1,9 @@
 # Dashboard
 
+## Code info
+- Language: Java
+- Frameworks Used: [Vaadin](https://vaadin.com/)
+
 ## Code status, pre-release, production.
 TBD
 
