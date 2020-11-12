@@ -1,0 +1,18 @@
+FROM ubuntu:16.04
+
+# following steps from https://raw.githubusercontent.com/WaverleyLabs/fwknop/master/Waverley%20Labs%20OpenSDP%20Installation%20and%20Configuration.pdf
+
+RUN apt update && apt install -y git texinfo libtool autoconf make telnet openssl libssl-dev libjson0 libjson0-dev libpcap-dev
+
+# clone waverly lab's fork of fwknock
+RUN git clone https://github.com/WaverleyLabs/fwknop.git
+
+# install fwknop
+WORKDIR /fwknop
+RUN libtoolize --force && aclocal && autoheader && automake --force-missing --add-missing && autoconf
+RUN ./configure --disable-server --prefix=/usr
+RUN make && make install
+
+WORKDIR /
+# remove code artifacts
+RUN rm -fr fwknop
