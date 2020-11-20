@@ -16,3 +16,6 @@ RUN make && make install
 WORKDIR /
 # remove code artifacts
 RUN rm -fr fwknop
+
+# install nano, may be unnecessary later in development
+RUN apt install nano
