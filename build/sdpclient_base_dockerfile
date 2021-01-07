@@ -19,3 +19,6 @@ RUN rm -fr fwknop
 
 # install nano, may be unnecessary later in development
 RUN apt install nano
+
+# install wget
+RUN apt install wget
