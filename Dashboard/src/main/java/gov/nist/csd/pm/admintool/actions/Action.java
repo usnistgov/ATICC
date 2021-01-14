@@ -1,9 +1,13 @@
 package gov.nist.csd.pm.admintool.actions;
 
+import gov.nist.csd.pm.admintool.app.MainView;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Action {
+    public static String coordinatorURL = null;
+
     protected Map<String, Element> params = new HashMap<>();
     protected String name;
 
@@ -29,14 +33,11 @@ public abstract class Action {
 
     protected void addParam(String paramName, Type paramType) {
         switch (paramType) {
-            case NODETYPE:
-//                params.put(paramName, new Element<Node>(paramType));
-                break;
-            case OPERATION:
-//                params.put(paramName, new Element<String>(paramType));
-                break;
             case STRING:
-//                params.put(paramName, new Element<String>(paramType));
+                params.put(paramName, new Element<String>(paramType));
+                break;
+            case INT:
+                params.put(paramName, new Element<Integer>(paramType));
                 break;
         }
     }
@@ -46,11 +47,10 @@ public abstract class Action {
         if (element != null) {
             element.setValue(paramValue);
         } else {
-            // todo: throw exception
-            System.out.println("no such element with param name: " + paramName);
+            MainView.notify("no such element with param name: " + paramName, MainView.NotificationType.ERROR);
+            throw new IllegalArgumentException("no such element with param name: " + paramName);
         }
     }
-
 
     public String getName() {
         return name;
@@ -60,13 +60,14 @@ public abstract class Action {
         this.name = name;
     }
 
-
     public abstract boolean run();
 
     public abstract String explain();
 
+    public abstract String toString();
+
     public enum Type {
-        NODETYPE, OPERATION, STRING
+        STRING, INT
     }
 
     protected class Element<K> {

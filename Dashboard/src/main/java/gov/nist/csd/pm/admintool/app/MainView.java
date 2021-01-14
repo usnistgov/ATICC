@@ -30,7 +30,6 @@ public class MainView extends HorizontalLayout{
     private VerticalLayout navbar;
 
     public MainView() {
-
         testResults = new Div();
         actions = SingletonActiveActions.getInstance();
         navbar = new VerticalLayout();
@@ -57,8 +56,14 @@ public class MainView extends HorizontalLayout{
         Tab tab3 = new Tab("Results");
         VerticalLayout page3 = new VerticalLayout();
         page3.setSizeFull();
+        page2.setVisible(false);
 
-        Tabs tabs = new Tabs(tab1, tab2, tab3);
+        Tab tab4 = new Tab("Settings");
+        VerticalLayout page4 = new Settings();
+        page4.setSizeFull();
+        page4.setVisible(false);
+
+        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
         tabs.setFlexGrowForEnclosedTabs(1);
         navbar.add(tabs);
@@ -67,8 +72,9 @@ public class MainView extends HorizontalLayout{
         tabsToPages.put(tab1, page1);
         tabsToPages.put(tab2, page2);
         tabsToPages.put(tab3, page3);
+        tabsToPages.put(tab4, page4);
 
-        pages = new Div(page1, page2, page3);
+        pages = new Div(page1, page2, page3, page4);
         pages.setSizeFull();
 
         Set<Component> pagesShown = Stream.of(page1)
