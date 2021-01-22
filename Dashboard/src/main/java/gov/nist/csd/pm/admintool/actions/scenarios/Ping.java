@@ -1,9 +1,11 @@
 package gov.nist.csd.pm.admintool.actions.scenarios;
 
-import com.sun.org.apache.regexp.internal.RE;
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.services.RestService;
-import org.apache.http.client.HttpClient;
+import org.springframework.http.HttpMethod;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Ping extends Action {
@@ -17,11 +19,17 @@ public class Ping extends Action {
     @Override
     public boolean run() {
         String address = ((String)getParams().get("Address").getValue());
-        int count = ((int)getParams().get("Count").getValue());
+        Integer count = ((Integer)getParams().get("Count").getValue());
 
+        Map<String,Object> subParams = new HashMap<String, Object>();
+        subParams.put("Address", address);
+        subParams.put("Count", count);
 
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("type", "ping");
+        params.put("body", subParams);
 
-        return false;
+        return (RestService.sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params).contains("true"));
     }
 
     @Override
