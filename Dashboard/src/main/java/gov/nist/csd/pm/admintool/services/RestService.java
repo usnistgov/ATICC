@@ -17,23 +17,28 @@ public class RestService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public static String sendRequest(String url, HttpMethod method, Map<String, Object> params) {
+    public static coordinatorResponse sendRequest(String url, HttpMethod method, Map<String, Object> params) {
         RestTemplate rt = new RestTemplate();
-
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(params, null);
-        ResponseEntity<String> response;
+        ResponseEntity<coordinatorResponse> response;
+        coordinatorResponse noResponse = new coordinatorResponse();
 
         if (method == HttpMethod.GET) {
-            response = rt.getForEntity(url, String.class, request);
+            try {
+                response = rt.getForEntity(url, coordinatorResponse.class, request);
+            } catch (Exception e) {
+                noResponse.success = false;
+                return noResponse;
+            }
         } else /* if (method == HttpMethod.POST) */ {
-            response = rt.postForEntity(url, request, String.class);
+            try {
+                response = rt.postForEntity(url, request, coordinatorResponse.class);
+            } catch (Exception e) {
+                noResponse.success = false;
+                return noResponse;
+            }
         }
 
         return response.getBody();
-    }
-
-    public static void getPostsPlainJSON() {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-//        return this.restTemplate.getForObject(url, String.class);
     }
 }

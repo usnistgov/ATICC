@@ -29,7 +29,7 @@ public class Ping extends Action {
         params.put("type", "ping");
         params.put("body", subParams);
 
-        return (RestService.sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params).contains("true"));
+        return (RestService.sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params).success);
     }
 
     @Override
