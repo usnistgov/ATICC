@@ -6,3 +6,4 @@ node_modules
 *.js
 *.json
 .DS_Store
+/Coordinator/Configs

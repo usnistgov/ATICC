@@ -11,7 +11,7 @@ import (
 
 // ParseFlags provides all runtime arguments for the coordinator
 func ParseFlags() (string, error) {
-	var port = flag.Int("port", 8080, "Port that the web server will run on")
+	var port = flag.Int("port", 8081, "Port that the web server will run on")
 
 	flag.Parse()
 
