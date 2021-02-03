@@ -19,6 +19,8 @@ public abstract class Action {
         return params;
     }
 
+    public String explanation;
+
     public Map<String, Type> getParamNamesAndTypes() {
         HashMap<String, Type> ret = new HashMap<>();
         for (String key: params.keySet()) {
@@ -61,8 +63,6 @@ public abstract class Action {
     }
 
     public abstract boolean run();
-
-    public abstract String explain();
 
     public abstract String toString();
 

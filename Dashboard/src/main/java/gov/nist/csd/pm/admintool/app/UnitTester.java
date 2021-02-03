@@ -132,8 +132,14 @@ public class UnitTester extends VerticalLayout {
             results.remove(c);
         });
         for (Action action: actions) {
-            String audit = action.explain();
             VerticalLayout auditLayout = new VerticalLayout();
+            AccordionPanel regularPannel = results.add(action.toString(), auditLayout);
+            if (action.run()) { // passed
+                regularPannel.getElement().getStyle().set("background", "#BEFFB5"); // passed
+            } else { // failed
+                regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed
+            }
+            String audit = action.explanation;
             auditLayout.setSizeFull();
             auditLayout.getStyle()
                     .set("padding-bottom", "0px");
@@ -154,12 +160,6 @@ public class UnitTester extends VerticalLayout {
                 }
             } else {
                 auditLayout.add(new Span(audit));
-            }
-            AccordionPanel regularPannel = results.add(action.toString(), auditLayout);
-            if (action.run()) { // passed
-                regularPannel.getElement().getStyle().set("background", "#BEFFB5"); // passed
-            } else { // failed
-                regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed
             }
             regularPannel.addThemeVariants(DetailsVariant.FILLED, DetailsVariant.REVERSE);
             results.close();

@@ -27,6 +27,7 @@ public class RestService {
             try {
                 response = rt.getForEntity(url, coordinatorResponse.class, request);
             } catch (Exception e) {
+                noResponse.summary = e.getMessage();
                 noResponse.success = false;
                 return noResponse;
             }
@@ -34,6 +35,7 @@ public class RestService {
             try {
                 response = rt.postForEntity(url, request, coordinatorResponse.class);
             } catch (Exception e) {
+                noResponse.summary = e.getMessage();
                 noResponse.success = false;
                 return noResponse;
             }
