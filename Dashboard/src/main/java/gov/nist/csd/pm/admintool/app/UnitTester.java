@@ -1,4 +1,4 @@
-package gov.nist.csd.pm.admintool.app.testingApps;
+package gov.nist.csd.pm.admintool.app;
 
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
@@ -9,8 +9,12 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.component.textfield.TextField;
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.actions.SingletonActiveActions;
+import gov.nist.csd.pm.admintool.actions.scenarios.Ping;
 import gov.nist.csd.pm.admintool.app.MainView;
 import java.util.Map;
 
@@ -34,10 +38,6 @@ public class UnitTester extends VerticalLayout {
         results = new Accordion();
         refreshListOfTests();
 
-        testSelect = new ComboBox<>("Tests");
-        // TODO: replace with our list of tests
-//        testSelect.setItems("Assert Association", "Assert Assignment", "Check Permission",
-//                "Assign Event", "Deassign Event", "Deassign From Event");
         chosenTest = null;
 
         addTestSelectForm();
@@ -64,55 +64,49 @@ public class UnitTester extends VerticalLayout {
         form.add(test);
 
         // actual combo box
+        testSelect = new ComboBox<>("Tests");
+        testSelect.setItems("Ping"); // todo: add the rest of the test types
         testSelect.setRequiredIndicatorVisible(true);
         testSelect.setPlaceholder("Select an option");
         testSelect.addValueChangeListener(event -> {
             if (!event.getSource().isEmpty()) {
-                // TODO: Instantiate each new test
+                // todo: add the rest of the test types
                 switch (event.getValue()) {
-                    case "Assert Association":
+                    case "Ping":
                         params.removeAll();
-//                        chosenTest = new AssertAssociation();
-                        break;
-                    case "Assert Assignment":
-                        params.removeAll();
-//                        chosenTest = new AssertAssignment();
-                        break;
-                    case "Check Permission":
-                        params.removeAll();
-//                        chosenTest = new CheckPermission();
-                        break;
-                    case "Assign Event":
-                        params.removeAll();
-//                        chosenTest = new AssignEvent();
-                        break;
-                    case "Deassign Event":
-                        params.removeAll();
-//                        chosenTest = new DeassignEvent();
-                        break;
-                    case "Deassign From Event":
-                        params.removeAll();
-//                        chosenTest = new DeassignFromEvent();
+                        chosenTest = new Ping();
                         break;
                 }
                 if (chosenTest != null) {
-                    Map<String, Action.Type> info = chosenTest.getParamNamesAndTypes();
-                    for (String key : info.keySet()) {
-                        // TODO: Configure each type of parameter
-//                        switch (info.get(key)) {
-//                            case STRING:
-//                                TextField textField = new TextField();
-//                                textField.setLabel(key);
-//                                textField.setPlaceholder("Select String");
-//                                textField.addValueChangeListener(textEvent -> {
-//                                    String selected = textEvent.getValue();
-//                                    if (selected != null) {
-//                                        tempTest.setParamValue(key, selected);
-//                                    }
-//                                });
-//                                params.add(textField);
-//                                break;
-//                        }
+                    Map<String, Action.Type> paramsTypes = chosenTest.getParamNamesAndTypes();
+                    for (String paramName : paramsTypes.keySet()) {
+                        switch (paramsTypes.get(paramName)) {
+                            case STRING:
+                                TextField textField = new TextField();
+                                textField.setLabel(paramName);
+                                textField.setPlaceholder("Enter String...");
+                                textField.addValueChangeListener(textEvent -> {
+                                    if (textEvent.getValue() != null) {
+                                        chosenTest.setParamValue(paramName, textEvent.getValue());
+                                    }
+                                });
+//                                textField.setValue("");
+                                params.add(textField);
+                                break;
+                            case INT:
+                                IntegerField integerField = new IntegerField();
+                                integerField.setLabel(paramName);
+                                integerField.setHasControls(true);
+                                integerField.setPlaceholder("Enter Number...");
+                                integerField.addValueChangeListener(integerEvent -> {
+                                    if (integerEvent.getValue() != null) {
+                                        chosenTest.setParamValue(paramName, integerEvent.getValue());
+                                    }
+                                });
+//                                integerField.setValue();
+                                params.add(integerField);
+                                break;
+                        }
                     }
                 }
             }
