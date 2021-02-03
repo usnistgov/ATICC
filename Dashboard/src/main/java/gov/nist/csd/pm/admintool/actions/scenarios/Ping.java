@@ -40,7 +40,7 @@ public class Ping extends Action {
             this.explanation = "Ping test to " + address + " failed:\n" + response.summary;
         }
 
-        return (RestService.sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params).success);
+        return success;
     }
 
     @Override
