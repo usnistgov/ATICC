@@ -30,17 +30,26 @@ public class Ping extends Action {
         params.put("type", "ping");
         params.put("body", subParams);
 
-        coordinatorResponse response = RestService
+        this.storedResponse = RestService
                 .sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params);
-        Boolean success = response.success;
+
+        return this.storedResponse.success;
+    }
+
+    @Override
+    public String explain() {
+        String address = ((String)getParams().get("Address").getValue());
+        Integer count = ((Integer)getParams().get("Count").getValue());
+        Boolean success = this.storedResponse.success;
+        String explanation;
 
         if (success) {
-            this.explanation = "Ping test to " + address + " passed " + count + " times.";
+            explanation = "Ping test to " + address + " passed " + count + " times.";
         } else {
-            this.explanation = "Ping test to " + address + " failed:\n" + response.summary;
+            explanation = "Ping test to " + address + " failed:\n" + this.storedResponse.summary;
         }
 
-        return success;
+        return explanation;
     }
 
     @Override
