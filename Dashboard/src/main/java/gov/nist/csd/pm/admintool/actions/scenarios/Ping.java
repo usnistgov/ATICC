@@ -2,7 +2,6 @@ package gov.nist.csd.pm.admintool.actions.scenarios;
 
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.services.RestService;
-import gov.nist.csd.pm.admintool.services.CoordinatorScenarioResponse;
 import org.springframework.http.HttpMethod;
 
 import java.util.HashMap;
