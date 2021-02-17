@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Action {
-    public static String coordinatorURL = "http://localhost:8080";
+    public static String coordinatorURL = "http://localhost:8081";
 
     protected Map<String, Element> params = new HashMap<>();
     protected String name;
