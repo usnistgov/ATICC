@@ -9,9 +9,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import gov.nist.csd.pm.admintool.actions.Action;
-import gov.nist.csd.pm.admintool.services.RestService;
-import gov.nist.csd.pm.admintool.services.coordinatorResponse;
-import org.springframework.http.HttpMethod;
 
 
 @Tag("settings")
@@ -56,13 +53,6 @@ public class Settings extends VerticalLayout {
                     URLInput.setValue("");
                 else {
                     URLInput.setValue(Action.coordinatorURL);
-                    coordinatorResponse resp = RestService
-                            .sendRequest(Action.coordinatorURL.concat("/status"), HttpMethod.GET, null);
-
-                    if (resp != null && resp.status != null && resp.status.equals("ok"))
-                        coordinatorURL.getElement().getStyle().set("background", "#BEFFB5");
-                    else
-                        coordinatorURL.getElement().getStyle().set("background", "#FFBFB5");
                 }
             }
         });

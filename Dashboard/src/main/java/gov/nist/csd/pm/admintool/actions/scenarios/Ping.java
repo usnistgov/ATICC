@@ -2,7 +2,7 @@ package gov.nist.csd.pm.admintool.actions.scenarios;
 
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.services.RestService;
-import gov.nist.csd.pm.admintool.services.coordinatorResponse;
+import gov.nist.csd.pm.admintool.services.CoordinatorScenarioResponse;
 import org.springframework.http.HttpMethod;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class Ping extends Action {
         params.put("type", "ping");
         params.put("body", subParams);
 
-        coordinatorResponse response = RestService
+        CoordinatorScenarioResponse response = RestService
                 .sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params);
         Boolean success = response.success;
 

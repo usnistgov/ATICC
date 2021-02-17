@@ -1,5 +1,6 @@
 package gov.nist.csd.pm.admintool.services;
 
+import gov.nist.csd.pm.admintool.app.MainView;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -20,21 +21,15 @@ public class RestService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public static coordinatorResponse sendRequest(String url, HttpMethod method, Map<String, Object> params) {
+    public static CoordinatorScenarioResponse sendRequest(String url, HttpMethod method, Map<String, Object> params) {
         RestTemplate rt = new RestTemplate();
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(params, null);
-        ResponseEntity<coordinatorResponse> response;
-        coordinatorResponse noResponse = new coordinatorResponse();
-
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-
-        converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON));
-
-        rt.getMessageConverters().add(converter);
+        ResponseEntity<CoordinatorScenarioResponse> response;
+        CoordinatorScenarioResponse noResponse = new CoordinatorScenarioResponse();
 
         if (method == HttpMethod.GET) {
             try {
-                response = rt.getForEntity(url, coordinatorResponse.class, request);
+                response = rt.getForEntity(url, CoordinatorScenarioResponse.class, request);
             } catch (Exception e) {
                 noResponse.summary = e.getMessage();
                 noResponse.success = false;
@@ -42,7 +37,7 @@ public class RestService {
             }
         } else /* if (method == HttpMethod.POST) */ {
             try {
-                response = rt.postForEntity(url, request, coordinatorResponse.class);
+                response = rt.postForEntity(url, request, CoordinatorScenarioResponse.class);
             } catch (Exception e) {
                 noResponse.summary = e.getMessage();
                 noResponse.success = false;
@@ -52,4 +47,35 @@ public class RestService {
 
         return response.getBody();
     }
+
+    public static Boolean checkCoordinatorStatus(String url) {
+        RestTemplate rt = new RestTemplate();
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(null, null);
+        ResponseEntity<CoordinatorStatusResponse> response;
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON));
+
+        rt.getMessageConverters().add(converter);
+
+        try {
+            response = rt.getForEntity(url, CoordinatorStatusResponse.class, request);
+        } catch (Exception e) {
+            MainView.notify(e.getMessage(), MainView.NotificationType.ERROR);
+            return false;
+        }
+
+        if (response.getStatusCode().isError()) {
+            MainView.notify("Coordinator status returned error", MainView.NotificationType.ERROR);
+            return false;
+        } else {
+            MainView.notify("Coordinator status returned " + response.getStatusCode(), MainView.NotificationType.SUCCESS);
+            return true;
+        }
+
+
+    }
+
+
 }
