@@ -139,7 +139,7 @@ public class UnitTester extends VerticalLayout {
             } else { // failed
                 regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed
             }
-            String audit = action.explanation;
+            String audit = action.explain();
             auditLayout.setSizeFull();
             auditLayout.getStyle()
                     .set("padding-bottom", "0px");

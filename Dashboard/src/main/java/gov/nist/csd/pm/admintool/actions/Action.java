@@ -1,6 +1,7 @@
 package gov.nist.csd.pm.admintool.actions;
 
 import gov.nist.csd.pm.admintool.app.MainView;
+import gov.nist.csd.pm.admintool.services.coordinatorResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public abstract class Action {
         return params;
     }
 
-    public String explanation;
+    public coordinatorResponse storedResponse;
 
     public Map<String, Type> getParamNamesAndTypes() {
         HashMap<String, Type> ret = new HashMap<>();
@@ -63,6 +64,8 @@ public abstract class Action {
     }
 
     public abstract boolean run();
+
+    public abstract String explain();
 
     public abstract String toString();
 
