@@ -1,5 +1,6 @@
 package gov.nist.csd.pm.admintool.app;
 
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.button.Button;
@@ -10,12 +11,10 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.actions.SingletonActiveActions;
 import gov.nist.csd.pm.admintool.actions.scenarios.Ping;
-import gov.nist.csd.pm.admintool.app.MainView;
 import java.util.Map;
 
 public class UnitTester extends VerticalLayout {
@@ -55,8 +54,12 @@ public class UnitTester extends VerticalLayout {
 
         Button test = new Button("+", event -> {
             if (chosenTest != null) {
-                actions.add(chosenTest);
-                refreshComponent();
+                if (!filledParams()) {
+                    MainView.notify("Parameters are not filled.", MainView.NotificationType.ERROR);
+                } else {
+                    actions.add(chosenTest);
+                    refreshComponent();
+                }
             } else {
                 MainView.notify("No Test", MainView.NotificationType.DEFAULT);
             }
@@ -90,7 +93,7 @@ public class UnitTester extends VerticalLayout {
                                         chosenTest.setParamValue(paramName, textEvent.getValue());
                                     }
                                 });
-//                                textField.setValue("");
+                                //textField.setValue("");
                                 params.add(textField);
                                 break;
                             case INT:
@@ -103,7 +106,7 @@ public class UnitTester extends VerticalLayout {
                                         chosenTest.setParamValue(paramName, integerEvent.getValue());
                                     }
                                 });
-//                                integerField.setValue();
+                                //integerField.setValue();
                                 params.add(integerField);
                                 break;
                         }
@@ -116,6 +119,17 @@ public class UnitTester extends VerticalLayout {
         form.add(params);
 
         add(form);
+    }
+
+    private boolean filledParams() {
+        boolean paramsFilled = true;
+        Object[] parameterInputs = params.getChildren().toArray();
+        for (Object c: parameterInputs) {
+            if (c instanceof AbstractField) {
+                paramsFilled &= !((AbstractField<?, ?>) c).isEmpty();
+            }
+        }
+        return paramsFilled;
     }
 
     private void addListOfTests() {
