@@ -10,6 +10,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import gov.nist.csd.pm.admintool.actions.Action;
 import gov.nist.csd.pm.admintool.services.RestService;
 
@@ -17,7 +18,6 @@ import gov.nist.csd.pm.admintool.services.RestService;
 @Tag("settings")
 public class Settings extends VerticalLayout {
     private HorizontalLayout layout;
-    private Details coordinatorURL;
 
     public Settings() {
         layout = new HorizontalLayout();
@@ -34,18 +34,21 @@ public class Settings extends VerticalLayout {
         setSizeFull();
         setPadding(true);
 
+        // Creating URL Text Field
+        TextField URLInput = new TextField();
 
+        // Creating Each Icon
+        Icon loadingIcon = new Icon(VaadinIcon.COG);
         Icon checkIcon = new Icon(VaadinIcon.CHECK);
         checkIcon.setColor("green");
         Icon closeIcon = new Icon(VaadinIcon.CLOSE);
         closeIcon.setColor("red");
-        Icon loadingIcon = new Icon(VaadinIcon.COG);
 
-        TextField URLInput = new TextField();
+        // Creating and Configuring Text and Icon Horizontal Layout
         HorizontalLayout textAndIcon = new HorizontalLayout(URLInput, loadingIcon);
-        textAndIcon.setVerticalComponentAlignment(Alignment.CENTER);
+        textAndIcon.setAlignItems(Alignment.CENTER);
 
-        // Unit Tester
+        // Configuring URL Text Field
         URLInput.addValueChangeListener((event) -> {
             if (event.getValue() == null || event.getValue().equals(""))
                 Action.coordinatorURL = null;
@@ -63,8 +66,8 @@ public class Settings extends VerticalLayout {
         });
         URLInput.setWidth("100%");
 
-
-        coordinatorURL = new Details("Coordinator URL", null);
+        // Creating and Configuring Details Dropdown
+        Details coordinatorURL = new Details("Coordinator URL", null);
         coordinatorURL.setContent(textAndIcon);
         coordinatorURL.getElement().getStyle()
                 .set("background", "#DADADA"); //#A0FFA0
@@ -83,10 +86,11 @@ public class Settings extends VerticalLayout {
                         textAndIcon.removeAll();
                         textAndIcon.add(URLInput, closeIcon);
                     }
-
                 }
             }
         });
+        coordinatorURL.setOpened(true);
+
         add(coordinatorURL);
     }
 }
