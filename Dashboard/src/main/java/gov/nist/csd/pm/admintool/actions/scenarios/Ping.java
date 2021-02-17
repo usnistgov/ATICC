@@ -29,15 +29,28 @@ public class Ping extends Action {
         params.put("type", "ping");
         params.put("body", subParams);
 
-        return (RestService.sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params).success);
+
+        //CoordinatorScenarioResponse response = RestService
+        this.storedResponse = RestService
+                .sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params);
+
+        return this.storedResponse.success;
     }
 
     @Override
     public String explain() {
         String address = ((String)getParams().get("Address").getValue());
-        int count = ((int)getParams().get("Count").getValue());
+        Integer count = ((Integer)getParams().get("Count").getValue());
+        Boolean success = this.storedResponse.success;
+        String explanation;
 
-        return "Something";
+        if (success) {
+            explanation = "Ping test to " + address + " passed " + count + " times.";
+        } else {
+            explanation = "Ping test to " + address + " failed:\n" + this.storedResponse.summary;
+        }
+
+        return explanation;
     }
 
     @Override

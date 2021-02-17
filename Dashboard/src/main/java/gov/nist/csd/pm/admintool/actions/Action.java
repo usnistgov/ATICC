@@ -1,12 +1,13 @@
 package gov.nist.csd.pm.admintool.actions;
 
 import gov.nist.csd.pm.admintool.app.MainView;
+import gov.nist.csd.pm.admintool.services.CoordinatorScenarioResponse;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Action {
-    public static String coordinatorURL = "http://localhost:8080";
+    public static String coordinatorURL = "http://localhost:8081";
 
     protected Map<String, Element> params = new HashMap<>();
     protected String name;
@@ -18,6 +19,8 @@ public abstract class Action {
     protected Map<String, Element> getParams() {
         return params;
     }
+
+    public CoordinatorScenarioResponse storedResponse;
 
     public Map<String, Type> getParamNamesAndTypes() {
         HashMap<String, Type> ret = new HashMap<>();
