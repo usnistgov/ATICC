@@ -32,8 +32,6 @@ public class UnitTester extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.START);
 
-        params = new HorizontalLayout();
-
         actions = SingletonActiveActions.getInstance();
         results = new Accordion();
         refreshListOfTests();
@@ -50,10 +48,8 @@ public class UnitTester extends VerticalLayout {
         form.setWidthFull();
         form.setMargin(false);
 
-        params.setAlignItems(FlexComponent.Alignment.BASELINE);
-        params.setMargin(false);
-
-        Button test = new Button("+", event -> {
+        // add test button
+        Button addTest = new Button("+", event -> {
             if (chosenTest != null) {
                 if (!filledParams()) {
                     MainView.notify("Parameters are not filled.", MainView.NotificationType.ERROR);
@@ -65,7 +61,6 @@ public class UnitTester extends VerticalLayout {
                 MainView.notify("No Test", MainView.NotificationType.DEFAULT);
             }
         });
-        form.add(test);
 
         // actual combo box
         testSelect = new ComboBox<>("Tests");
@@ -116,14 +111,20 @@ public class UnitTester extends VerticalLayout {
             }
         });
 
-        form.add(testSelect);
+        // configuring parameters layout
+        params = new HorizontalLayout();
+        params.setAlignItems(FlexComponent.Alignment.BASELINE);
+        params.setMargin(false);
+
+        // refresh all test button
         Button refresh = new Button("Refresh", event -> {
             SingletonActiveActions.removeAllResponses();
             refreshComponent();
         });
         refresh.getElement().getStyle().set("margin-left", "auto");
-        form.add(params);
-        form.add(refresh);
+
+        // adding all the elements to the form
+        form.add(addTest, testSelect, params, refresh);
 
         add(form);
     }
