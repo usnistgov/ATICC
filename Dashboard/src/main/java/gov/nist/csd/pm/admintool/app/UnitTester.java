@@ -148,7 +148,7 @@ public class UnitTester extends VerticalLayout {
         for (Action action: actions) {
             VerticalLayout auditLayout = new VerticalLayout();
             AccordionPanel regularPannel = results.add(action.toString(), auditLayout);
-            if (action.run()) { // passed
+            if (action.resolve()) { // passed
                 regularPannel.getElement().getStyle().set("background", "#BEFFB5"); // passed
             } else { // failed
                 regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed

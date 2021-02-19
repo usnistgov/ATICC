@@ -1,6 +1,7 @@
 package gov.nist.csd.pm.admintool.actions.scenarios;
 
 import gov.nist.csd.pm.admintool.actions.Action;
+import gov.nist.csd.pm.admintool.services.CoordinatorScenarioResponse;
 import gov.nist.csd.pm.admintool.services.RestService;
 import org.springframework.http.HttpMethod;
 
@@ -17,7 +18,7 @@ public class Ping extends Action {
     }
 
     @Override
-    public boolean run() {
+    public CoordinatorScenarioResponse run() {
         String address = ((String)getParams().get("Address").getValue());
         Integer count = ((Integer)getParams().get("Count").getValue());
 
@@ -31,10 +32,10 @@ public class Ping extends Action {
 
 
         //CoordinatorScenarioResponse response = RestService
-        this.storedResponse = RestService
+        return RestService
                 .sendRequest(Action.coordinatorURL.concat("/scenario"), HttpMethod.POST, params);
 
-        return this.storedResponse.success;
+//        return this.storedResponse;
     }
 
     @Override

@@ -106,7 +106,7 @@ public class MainView extends HorizontalLayout{
         testResults.removeAll();
         for (Action action: actions) {
             Icon line = new Icon(VaadinIcon.LINE_V);
-            if (action.run()) {
+            if (action.resolve()) {
                 line.setColor("green");
             } else {
                 line.setColor("red");
