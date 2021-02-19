@@ -7,6 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -116,7 +117,13 @@ public class UnitTester extends VerticalLayout {
         });
 
         form.add(testSelect);
+        Button refresh = new Button("Refresh", event -> {
+            SingletonActiveActions.removeAllResponses();
+            refreshComponent();
+        });
+        refresh.getElement().getStyle().set("margin-left", "auto");
         form.add(params);
+        form.add(refresh);
 
         add(form);
     }
@@ -185,5 +192,6 @@ public class UnitTester extends VerticalLayout {
         testSelect.setValue(null);
         params.removeAll();
         refreshListOfTests();
+        MainView.refreshTestResults();
     }
 }

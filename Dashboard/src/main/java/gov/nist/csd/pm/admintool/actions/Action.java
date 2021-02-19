@@ -98,4 +98,8 @@ public abstract class Action {
             this.value = value;
         }
     }
+
+    public void removeStoredResponse() {
+        storedResponse = null;
+    }
 }

@@ -32,4 +32,10 @@ public class SingletonActiveActions extends ArrayList<Action> {
             actions.remove(0);
         }
     }
+
+    public static void removeAllResponses() {
+        for (int i = 0; i < actions.size(); i++) {
+            actions.get(i).removeStoredResponse();
+        }
+    }
 }
