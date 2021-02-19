@@ -23,9 +23,9 @@ import java.util.stream.Stream;
 
 @Route
 public class MainView extends HorizontalLayout{
-    private Div testResults;
+    private static Div testResults;
     private Div pages;
-    private SingletonActiveActions actions;
+    private static SingletonActiveActions actions;
 
     private VerticalLayout navbar;
 
@@ -102,11 +102,11 @@ public class MainView extends HorizontalLayout{
         add(pages);
     }
 
-    public void refreshTestResults() {
+    public static void refreshTestResults() {
         testResults.removeAll();
         for (Action action: actions) {
             Icon line = new Icon(VaadinIcon.LINE_V);
-            if (action.run()) {
+            if (action.resolve()) {
                 line.setColor("green");
             } else {
                 line.setColor("red");

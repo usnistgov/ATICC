@@ -20,7 +20,7 @@ public abstract class Action {
         return params;
     }
 
-    public CoordinatorScenarioResponse storedResponse;
+    public CoordinatorScenarioResponse storedResponse = null;
 
     public Map<String, Type> getParamNamesAndTypes() {
         HashMap<String, Type> ret = new HashMap<>();
@@ -63,7 +63,16 @@ public abstract class Action {
         this.name = name;
     }
 
-    public abstract boolean run();
+    protected abstract CoordinatorScenarioResponse run();
+
+    public boolean resolve() {
+        if (storedResponse == null) {
+            storedResponse = run();
+        }
+
+        return storedResponse.success;
+    }
+
 
     public abstract String explain();
 
@@ -88,5 +97,9 @@ public abstract class Action {
         public void setValue(K value) {
             this.value = value;
         }
+    }
+
+    public void removeStoredResponse() {
+        storedResponse = null;
     }
 }

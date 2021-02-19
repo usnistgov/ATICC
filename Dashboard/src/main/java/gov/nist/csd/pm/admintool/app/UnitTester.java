@@ -7,6 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -31,8 +32,6 @@ public class UnitTester extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.START);
 
-        params = new HorizontalLayout();
-
         actions = SingletonActiveActions.getInstance();
         results = new Accordion();
         refreshListOfTests();
@@ -49,10 +48,8 @@ public class UnitTester extends VerticalLayout {
         form.setWidthFull();
         form.setMargin(false);
 
-        params.setAlignItems(FlexComponent.Alignment.BASELINE);
-        params.setMargin(false);
-
-        Button test = new Button("+", event -> {
+        // add test button
+        Button addTest = new Button("+", event -> {
             if (chosenTest != null) {
                 if (!filledParams()) {
                     MainView.notify("Parameters are not filled.", MainView.NotificationType.ERROR);
@@ -64,7 +61,6 @@ public class UnitTester extends VerticalLayout {
                 MainView.notify("No Test", MainView.NotificationType.DEFAULT);
             }
         });
-        form.add(test);
 
         // actual combo box
         testSelect = new ComboBox<>("Tests");
@@ -115,8 +111,20 @@ public class UnitTester extends VerticalLayout {
             }
         });
 
-        form.add(testSelect);
-        form.add(params);
+        // configuring parameters layout
+        params = new HorizontalLayout();
+        params.setAlignItems(FlexComponent.Alignment.BASELINE);
+        params.setMargin(false);
+
+        // refresh all test button
+        Button refresh = new Button("Refresh", event -> {
+            SingletonActiveActions.removeAllResponses();
+            refreshComponent();
+        });
+        refresh.getElement().getStyle().set("margin-left", "auto");
+
+        // adding all the elements to the form
+        form.add(addTest, testSelect, params, refresh);
 
         add(form);
     }
@@ -148,7 +156,7 @@ public class UnitTester extends VerticalLayout {
         for (Action action: actions) {
             VerticalLayout auditLayout = new VerticalLayout();
             AccordionPanel regularPannel = results.add(action.toString(), auditLayout);
-            if (action.run()) { // passed
+            if (action.resolve()) { // passed
                 regularPannel.getElement().getStyle().set("background", "#BEFFB5"); // passed
             } else { // failed
                 regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed
@@ -185,5 +193,6 @@ public class UnitTester extends VerticalLayout {
         testSelect.setValue(null);
         params.removeAll();
         refreshListOfTests();
+        MainView.refreshTestResults();
     }
 }
