@@ -7,10 +7,10 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import gov.nist.csd.pm.admintool.actions.Action;
@@ -78,6 +78,10 @@ public class UnitTester extends VerticalLayout {
                 }
                 if (chosenTest != null) {
                     Map<String, Action.Type> paramsTypes = chosenTest.getParamNamesAndTypes();
+                    // Separator Line
+                    params.add(new Span());
+
+                    // Action Instance Parameters
                     for (String paramName : paramsTypes.keySet()) {
                         switch (paramsTypes.get(paramName)) {
                             case STRING:
@@ -107,6 +111,23 @@ public class UnitTester extends VerticalLayout {
                                 break;
                         }
                     }
+
+                    // Separator Line
+                    params.add(new Span());
+
+                    // Expected Result Input
+                    Select<Boolean> expectedResultSelect = new Select<>();
+                    expectedResultSelect.setItemLabelGenerator(item -> item ? "Success" : "Failure");
+                    expectedResultSelect.setItems(true, false);
+                    expectedResultSelect.setLabel("Expected Result");
+                    expectedResultSelect.setPlaceholder("Success/Failure...");
+                    expectedResultSelect.addValueChangeListener(selectEvent -> {
+                        if (selectEvent.getValue() != null) {
+                            chosenTest.expectedSuccess = selectEvent.getValue();
+                        }
+                    });
+                    // expectedResultSelect.setValue(true);
+                    params.add(expectedResultSelect);
                 }
             }
         });
@@ -155,11 +176,11 @@ public class UnitTester extends VerticalLayout {
         });
         for (Action action: actions) {
             VerticalLayout auditLayout = new VerticalLayout();
-            AccordionPanel regularPannel = results.add(action.toString(), auditLayout);
+            AccordionPanel regularPanel = results.add(action.toString(), auditLayout);
             if (action.resolve()) { // passed
-                regularPannel.getElement().getStyle().set("background", "#BEFFB5"); // passed
+                regularPanel.getElement().getStyle().set("background", "#BEFFB5"); // passed
             } else { // failed
-                regularPannel.getElement().getStyle().set("background", "#FFBFB5"); // failed
+                regularPanel.getElement().getStyle().set("background", "#FFBFB5"); // failed
             }
             String audit = action.explain();
             auditLayout.setSizeFull();
@@ -183,7 +204,7 @@ public class UnitTester extends VerticalLayout {
             } else {
                 auditLayout.add(new Span(audit));
             }
-            regularPannel.addThemeVariants(DetailsVariant.FILLED, DetailsVariant.REVERSE);
+            regularPanel.addThemeVariants(DetailsVariant.FILLED, DetailsVariant.REVERSE);
             results.close();
         }
     }
