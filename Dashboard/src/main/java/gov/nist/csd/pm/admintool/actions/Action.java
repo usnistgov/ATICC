@@ -3,15 +3,21 @@ package gov.nist.csd.pm.admintool.actions;
 import gov.nist.csd.pm.admintool.app.MainView;
 import gov.nist.csd.pm.admintool.services.CoordinatorScenarioResponse;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Action {
+    // static fields
     public static String coordinatorURL = "http://localhost:8081";
 
+    // instance fields
     protected Map<String, Element> params = new HashMap<>();
     protected String name;
+    public CoordinatorScenarioResponse storedResponse = null;
+    public Boolean expectedSuccess = null;
 
+    // instance methods
     public int getParamsLength() {
         return params.keySet().size();
     }
@@ -19,8 +25,6 @@ public abstract class Action {
     protected Map<String, Element> getParams() {
         return params;
     }
-
-    public CoordinatorScenarioResponse storedResponse = null;
 
     public Map<String, Type> getParamNamesAndTypes() {
         HashMap<String, Type> ret = new HashMap<>();
@@ -63,28 +67,43 @@ public abstract class Action {
         this.name = name;
     }
 
-    protected abstract CoordinatorScenarioResponse run();
+    protected boolean analyze() {
+        if (storedResponse == null)
+            throw new InvalidParameterException("storedResponse is null");
+        if (expectedSuccess == null)
+            throw new InvalidParameterException("expectedSuccess is null");
+
+        return storedResponse.success == expectedSuccess;
+    }
 
     public boolean resolve() {
         if (storedResponse == null) {
             storedResponse = run();
         }
 
-        return storedResponse.success;
+        return analyze();
     }
 
+    public void removeStoredResponse() {
+        storedResponse = null;
+    }
+
+    // abstract methods
+    protected abstract CoordinatorScenarioResponse run();
 
     public abstract String explain();
 
     public abstract String toString();
 
+    // custom types and classes
     public enum Type {
         STRING, INT
-    }
 
+    }
     protected class Element<K> {
         Type type;
         K value;
+
         public Element(Type type) {
             this.type = type;
             value = null;
@@ -93,13 +112,9 @@ public abstract class Action {
         public K getValue() {
             return value;
         }
-
         public void setValue(K value) {
             this.value = value;
         }
-    }
 
-    public void removeStoredResponse() {
-        storedResponse = null;
     }
 }

@@ -42,13 +42,25 @@ public class Ping extends Action {
     public String explain() {
         String address = ((String)getParams().get("Address").getValue());
         Integer count = ((Integer)getParams().get("Count").getValue());
-        Boolean success = this.storedResponse.success;
+        Boolean success = analyze();
         String explanation;
 
-        if (success) {
+        if (this.storedResponse.success) {
             explanation = "Ping test to " + address + " passed " + count + " times.";
         } else {
-            explanation = "Ping test to " + address + " failed:\n" + this.storedResponse.summary;
+            explanation = "Ping test to " + address + " failed:\n" + storedResponse.summary;
+        }
+
+        if (expectedSuccess) {
+            explanation += "\n---\nExpected Result: Success";
+        } else {
+            explanation += "\n---\nExpected Result: Failure";
+        }
+
+        if (success) {
+            explanation += "\n---\nThe Results Matched";
+        } else {
+            explanation += "\n---\nThe Results did not Match";
         }
 
         return explanation;
@@ -58,6 +70,7 @@ public class Ping extends Action {
     public String toString() {
         String address = ((String)getParams().get("Address").getValue());
         int count = ((int)getParams().get("Count").getValue());
-        return name + " [Address: " + address + "; Count: " + count + "]";
+        return name + " [Address: " + address + "; Count: " + count + "]"
+                + " [Expected Result: " + (expectedSuccess ? "True" : "False") + "]";
     }
 }
