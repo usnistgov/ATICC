@@ -2,9 +2,9 @@
 
 title "Active Access Control Tests for a Good Guy Client"
 
-control "AC-GGC" do
+control "AC-Ingress-GGC" do
   impact 0.7
-  title "Test Access Control Ingress"
+  title "Access Control Ingress - Good Guy Client "
 
   # Running fwknop command
   describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
@@ -24,4 +24,14 @@ control "AC-GGC" do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
+end
+
+control "AC-Egress-GGC" do
+  impact 0.7
+  title "Access Control Egress - Good Guy Client"
+
+  # Running fwknop command
+  # test step 1
+  # test step 2
+  # test step 3
 end
