@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Dependencies -->
-        <vaadin.version>14.3.3</vaadin.version>
+        <vaadin.version>19.0.5</vaadin.version>
     </properties>
 
     <parent>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <version>13.0.8</version>
+            <version>19.0.5</version>
             <type>pom</type>
         <!--    <scope>import</scope> -->
         </dependency>
