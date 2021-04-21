@@ -13,17 +13,42 @@ control "AC-Ingress-GGC" do
     its('exit_status') { should eq 0 }
   end
 
-  # Checking if telnet is open on blue machiene
+  # describe command('sleep 1') do
+  #   it { should exist }
+  #   its('stderr') { should eq '' }
+  # end
+
+  # icmp (Blue Machiene)
+  describe port('0.0.0.0', 57621) do
+    it { should be_listening }
+    its('protocols') { should include 'tcp' }
+  end
+
+
+  #7 - F-Force App (Blue Machiene)
+  describe port('sdp-gateway.e3lab.solutions', 8282) do
+    it { should be_listening }
+    its('protocols') { should include 'tcp' }
+  end
+
+  #8 - ssh (Blue Machiene)
+  describe port('sdp-gateway.e3lab.solutions', 2200) do
+    it { should be_listening }
+    its('protocols') { should include 'tcp' }
+  end
+
+  #9 - VNC (Blue Machiene)
+  describe port('sdp-gateway.e3lab.solutions', 5901) do
+    it { should be_listening }
+    its('protocols') { should include 'tcp' }
+  end
+
+  #10 - Telnet (Blue Machiene)
   describe port('sdp-gateway.e3lab.solutions', 23) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
-  # Checking if ssh is open on blue machiene
-  describe port('sdp-gateway.e3lab.solutions', 22) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
-  end
 end
 
 control "AC-Egress-GGC" do
