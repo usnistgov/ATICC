@@ -13,12 +13,12 @@ control "HC-Ingress-GGC" do
     its('exit_status') { should eq 0 }
   end
   #Test Containment for Green host
-  describe host('sdp-attacker1.e3lab.solutions') do #Checks all ports and protocols if none are specified
+  describe host('sdp-attacker1.e3lab.solutions') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host
-  describe host('sdp-gateway.e3lab.solutions') do #Checks all ports and protocols if none are specified
+  describe host('sdp-gateway.e3lab.solutions') do
     it { should be_reachable }
     it { should be_resolvable }
   end
@@ -35,17 +35,17 @@ control "HC-Transiting-GGC" do
     its('exit_status') { should eq 0 }
   end
   #Test Containment for Green host
-  describe host('sdp-attacker1.e3lab.solutions') do #Checks all ports and protocols if none are specified
+  describe host('sdp-attacker1.e3lab.solutions') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host
-  describe host('sdp-gateway.e3lab.solutions') do #Checks all ports and protocols if none are specified
+  describe host('sdp-gateway.e3lab.solutions') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Resilient Controller
-  describe host('sdp-controller.e3lab.solutions') do #Checks all ports and protocols if none are specified
+  describe host('sdp-controller.e3lab.solutions') do
     it { should be_reachable }
     it { should be_resolvable }
   end
