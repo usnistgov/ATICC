@@ -8,7 +8,7 @@ control "HC-Ingress-BGC" do
 
   # Running fwknop command
   describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
-    it { should exist }
+    it { should_not exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -72,7 +72,7 @@ control "HC-Transiting-BGC" do
 
   # Running fwknop command
   describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
-    it { should exist }
+    it { should_not exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -129,13 +129,24 @@ control "HC-Transiting-BGC" do
     it { should_not be_resolvable }
   end
 
-
-
-  #Test Containment for Resilient Controller
-  describe host('sdp-controller.e3lab.solutions') do
+  #Test Containment for Resilient Controller host F-Force App
+  describe host('sdp-controller.e3lab.solutions', port: 8282, protocol: 'tcp') do
     it { should_not be_reachable }
     it { should_not be_resolvable }
   end
-
-  #Make sure to add new port tests for containment of the Resilient Controller
+  #Test Containment for Resilient Controller host SSH
+  describe host('sdp-controller.e3lab.solutions', port: 2200, protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
+  end
+  #Test Containment for Resilient Controller host VNC
+  describe host('sdp-controller.e3lab.solutions', port: 5901, protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
+  end
+  #Test Containment for Resilient Controller host Telnet
+  describe host('sdp-controller.e3lab.solutions', port: 23, protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
+  end
 end

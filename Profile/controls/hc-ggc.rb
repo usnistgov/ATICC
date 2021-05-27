@@ -135,13 +135,24 @@ control "HC-Transiting-GGC" do
     it { should be_resolvable }
   end
 
-
-
-  #Test Containment for Resilient Controller
-  describe host('sdp-controller.e3lab.solutions') do
+  #Test Containment for Resilient Controller host F-Force App
+  describe host('sdp-controller.e3lab.solutions', port: 8282, protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
-
-  #Make sure to add new port tests for containment of the Resilient Controller
+  #Test Containment for Resilient Controller host SSH
+  describe host('sdp-controller.e3lab.solutions', port: 2200, protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
+  end
+  #Test Containment for Resilient Controller host VNC
+  describe host('sdp-controller.e3lab.solutions', port: 5901, protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
+  end
+  #Test Containment for Resilient Controller host Telnet
+  describe host('sdp-controller.e3lab.solutions', port: 23, protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
+  end
 end
