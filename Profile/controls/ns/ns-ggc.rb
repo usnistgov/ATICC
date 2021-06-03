@@ -17,13 +17,13 @@ control "NS-Ingress-GGC" do
     its('exit_status') { should eq 0 }
   end
 
-  # Checking if telnet is open on blue machiene
+  # Checking if telnet is open on blue machine
   describe port('sdp-gateway.e3lab.solutions', 23) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
-  # Checking if ssh is open on blue machiene
+  # Checking if ssh is open on blue machine
   describe port('sdp-gateway.e3lab.solutions', 22) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
@@ -48,6 +48,9 @@ control "NS-Transit-GGC" do
   end
 
   # ssh to unauthoried internal domain
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
+    its('exit_status') { should_not eq 0}
+  end
   
 end
 
