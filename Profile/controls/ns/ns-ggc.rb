@@ -69,5 +69,8 @@ control "NS-Egress-GGC" do
   end
   
   # ssh to external domain
+  describe command("ssh -i <key> -o ConnectTimeout=5 <external.domain> 'exit 0'") do
+    its('exit_status') { should_not eq 0}
+  end
   
 end
