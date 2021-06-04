@@ -48,6 +48,9 @@ control "NS-Transit-BGC" do
   end
   
   # SHOULD FAIL: ssh to unauthoried internal domain
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
+    its('exit_status') { should_not eq 0}
+  end
   
 end
 
@@ -66,5 +69,8 @@ control "NS-Egress-BGC" do
   end
   
   # SHOULD FAIL: ssh to external domain
+  describe command("ssh -i <key> -o ConnectTimeout=5 <external.domain> 'exit 0'") do
+    its('exit_status') { should_not eq 0}
+  end
   
 end
