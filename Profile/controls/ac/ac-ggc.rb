@@ -7,16 +7,14 @@ control "AC-Ingress-GGC" do
   title "Access Control Ingress - Good Guy Client "
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should exist }
+  end
+
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
-
-  # describe command('sleep 1') do
-  #   it { should exist }
-  #   its('stderr') { should eq '' }
-  # end
 
   # icmp (Blue Machine)
   describe port('0.0.0.0', 57621) do
@@ -55,13 +53,17 @@ control "AC-Egress-GGC" do
   title "Access Control Egress - Good Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should exist }
+  end
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
   # Egress steps
+  # Access google
+  # Clone a GitHub repo
 end
 
 control "AC-Transiting-GGC" do
@@ -69,8 +71,11 @@ control "AC-Transiting-GGC" do
   title "Access Control Transiting - Good Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should exist }
+  end
+
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end

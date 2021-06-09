@@ -7,8 +7,11 @@ control "AC-Ingress-BGC" do
   title "Access Control Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should_not exist }
+  end
+
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
@@ -51,12 +54,18 @@ control "AC-Egress-BGC" do
   title "Access Control Egress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should_not exist }
+  end
+
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
+
   # Egress steps
+  # Access google
+  # Clone a GitHub repo
 end
 
 control "AC-Transiting-BGC" do
@@ -64,10 +73,14 @@ control "AC-Transiting-BGC" do
   title "Access Control Transiting - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command('fwknop') do
     it { should_not exist }
+  end
+  
+  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
+  
   # Transiting steps
 end
