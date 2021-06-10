@@ -46,6 +46,11 @@ control "NS-Transit-BGC" do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
+
+  # SHOULD FAIL: ssh to authorized internal domain
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'exit 0'") do
+    its('exit_status') { should_not eq 0}
+  end
   
   # SHOULD FAIL: ssh to unauthoried internal domain
   describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
