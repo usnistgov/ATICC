@@ -65,9 +65,9 @@ control "AC-Egress-BGC" do
 
   # Egress steps
   
-  # ssh to unauthorized internal domain
+  # SSH to Blue Machine (authorized internal domain)
   # Clone a GitHub repository
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git'") do
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
     its('exit_status') { should_not eq 0 }
   end
 

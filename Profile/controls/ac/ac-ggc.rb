@@ -63,9 +63,9 @@ control "AC-Egress-GGC" do
 
   # Egress steps
 
-  # ssh to authorized internal domain
+  # SSH to Blue Machine (authorized internal domain)
   # Clone a GitHub repository
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git'") do
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
     its('exit_status') { should eq 0 }
   end
   
@@ -86,4 +86,22 @@ control "AC-Transiting-GGC" do
   end
 
   # Transiting steps
+  # Go from Blue to Green
+  # describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'exit 0'") do
+  #   its('exit_status') { should eq 0 }
+  # end
+  # describe port('sdp-attacker1.e3lab.solutions', 2200) do
+  #   it { should_not be_listening }
+  #   its('protocols') { should_not include 'tcp' }
+  # end
+  
+
+  # Go from Green to Blue
+  # describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
+  #   its('exit_status') { should eq 0 }
+  # end
+  # describe port('sdp-gateway.e3lab.solutions', 2200) do
+  #   it { should_not be_listening }
+  #   its('protocols') { should_not include 'tcp' }
+  # end
 end
