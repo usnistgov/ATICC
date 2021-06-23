@@ -62,8 +62,13 @@ control "AC-Egress-GGC" do
   end
 
   # Egress steps
-  # Access google
-  # Clone a GitHub repo
+
+  # ssh to authorized internal domain
+  # Clone a GitHub repository
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git'") do
+    its('exit_status') { should eq 0 }
+  end
+  
 end
 
 control "AC-Transiting-GGC" do
