@@ -29,7 +29,17 @@ control "NS-Ingress-BGC" do
     its('protocols') { should_not include 'tcp' }
   end
 
-  # SHOULD FAIL: Use trace route to show destination is on seperate network
+  # Use nmap to show destination is on seperate network
+
+  # Check nmap command exists
+  describe command('nmap') do
+    it { should exist }
+  end
+
+  # Run nmap scan to determine whether all ports are filtered
+  describe command('nmap 0.0.0.0') do
+    its('stdout') { should_not match (/.*All.*are filtered.*/) }
+  end
   
 end
 
