@@ -87,19 +87,18 @@ control "AC-Transiting-GGC" do
 
   # Transiting steps
   # Go from Blue to Green
-  # describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'exit 0'") do
-  #   its('exit_status') { should eq 0 }
-  # end
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'telnet sdp-attacker1.e3lab.solutions && exit 0'") do
+    its('exit_status') { should eq 0 }
+  end
   # describe port('sdp-attacker1.e3lab.solutions', 2200) do
   #   it { should_not be_listening }
   #   its('protocols') { should_not include 'tcp' }
   # end
   
-
   # Go from Green to Blue
-  # describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
-  #   its('exit_status') { should eq 0 }
-  # end
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'telnet sdp-gateway.e3lab.solutions && exit 0'") do
+    its('exit_status') { should eq 0 }
+  end
   # describe port('sdp-gateway.e3lab.solutions', 2200) do
   #   it { should_not be_listening }
   #   its('protocols') { should_not include 'tcp' }
