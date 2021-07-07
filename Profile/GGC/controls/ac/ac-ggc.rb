@@ -4,44 +4,44 @@ title "Active Access Control Tests for a Good Guy Client"
 
 control "AC-Ingress-GGC" do
   impact 0.7
-  title "Access Control Ingress - Good Guy Client "
+  title "Access Control Ingress - Good Guy Client"
 
   # Running fwknop command
   describe command('fwknop') do
     it { should exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
   # icmp (Blue Machine)
-  describe port('0.0.0.0', 57621) do
+  describe port('0.0.0.0', input('icmp_port')) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
   #7 - F-Force App (Blue Machine)
-  describe port('sdp-gateway.e3lab.solutions', 8282) do
+  describe port(input('blue_machine_address'), input('fforce_app_port')) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
   #8 - ssh (Blue Machine)
-  describe port('sdp-gateway.e3lab.solutions', 2200) do
+  describe port(input('blue_machine_address'), input('ssh_port')) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
   #9 - VNC (Blue Machine)
-  describe port('sdp-gateway.e3lab.solutions', 5901) do
+  describe port(input('blue_machine_address'), input('vnc_port')) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
   #10 - Telnet (Blue Machine)
-  describe port('sdp-gateway.e3lab.solutions', 23) do
+  describe port(input('blue_machine_address'), input('telnet_port')) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
@@ -56,7 +56,7 @@ control "AC-Egress-GGC" do
   describe command('fwknop') do
     it { should exist }
   end
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -68,7 +68,7 @@ control "AC-Egress-GGC" do
   describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
     its('exit_status') { should eq 0 }
   end
-  
+
 end
 
 control "AC-Transiting-GGC" do
@@ -80,7 +80,7 @@ control "AC-Transiting-GGC" do
     it { should exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -94,7 +94,7 @@ control "AC-Transiting-GGC" do
   #   it { should_not be_listening }
   #   its('protocols') { should_not include 'tcp' }
   # end
-  
+
   # Go from Green to Blue
   describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'telnet sdp-gateway.e3lab.solutions && exit 0'") do
     its('exit_status') { should eq 0 }

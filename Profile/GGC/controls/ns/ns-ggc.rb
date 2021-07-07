@@ -12,7 +12,7 @@ control "NS-Ingress-GGC" do
     it { should exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -40,7 +40,7 @@ control "NS-Ingress-GGC" do
   describe command('nmap 0.0.0.0') do
     its('stdout') { should match (/.*All.*are filtered.*/) }
   end
-  
+
 end
 
 control "NS-Transit-GGC" do
@@ -52,7 +52,7 @@ control "NS-Transit-GGC" do
     it { should exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
@@ -66,7 +66,7 @@ control "NS-Transit-GGC" do
   describe command("echo 'exit' | telnet sdp-gateway.e3lab.solutions") do
     its('exit_status') { should eq 0}
   end
-  
+
   # ssh to unauthorized internal domain
   describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
     its('exit_status') { should_not eq 0}
@@ -76,7 +76,7 @@ control "NS-Transit-GGC" do
   describe command("echo 'exit' | telnet sdp-attacker1.e3lab.solutions") do
     its('exit_status') { should_not eq 0}
   end
-  
+
 end
 
 control "NS-Egress-GGC" do
@@ -88,11 +88,11 @@ control "NS-Egress-GGC" do
     it { should exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
-  
+
   # ssh to external domain
   describe command("ssh -i <key> -o ConnectTimeout=5 <external.domain> 'exit 0'") do
     its('exit_status') { should_not eq 0}
@@ -102,5 +102,5 @@ control "NS-Egress-GGC" do
   describe command("telnet <external.domain>") do
     its('exit_status') { should_not eq 0}
   end
-  
+
 end

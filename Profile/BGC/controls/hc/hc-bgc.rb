@@ -7,7 +7,7 @@ control "HC-Ingress-BGC" do
   title "Hostname Containment Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     it { should_not exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
@@ -71,7 +71,7 @@ control "HC-Transiting-BGC" do
   title "Hostname Containment Transiting - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     it { should_not exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }

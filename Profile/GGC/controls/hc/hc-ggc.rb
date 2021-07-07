@@ -7,7 +7,7 @@ control "HC-Ingress-GGC" do
   title "Hostname Containment Ingress - Good Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     it { should exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
@@ -73,14 +73,14 @@ control "HC-Transiting-GGC" do
   title "Hostname Containment Transiting - Good Guy Client"
 
   # Running fwknop command
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     it { should exist }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
 
-  
+
   #Test Containment for Green host ICMP
   describe host('0.0.0.0', port: 57621, protocol: 'tcp') do
     it { should be_reachable }

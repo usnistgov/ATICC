@@ -12,7 +12,7 @@ control "NS-Ingress-BGC" do
     it { should_not exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
@@ -52,7 +52,7 @@ control "NS-Transit-BGC" do
     it { should_not exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
@@ -88,7 +88,7 @@ control "NS-Egress-BGC" do
     it { should_not exist }
   end
 
-  describe command('fwknop —wget-cmd /usr/bin/wget -R -n service_gate') do
+  describe command(input('full_fwknop_command')) do
     its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
