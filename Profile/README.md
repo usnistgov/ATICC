@@ -16,3 +16,8 @@ Controls Architecture:
     4. Network Segmentations (ns)
     5. Micro Segmentation (ms)
     6. ** AC/IA Controls **
+
+- Full InSpec Run Command:
+    ```bash
+    docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v <path_to_Profile_dir>:/profile chef/inspec exec /profile/<choosen_inspec_profile> --input-file /profile/input_file.yml -t docker://<target_container_name>
+    ```
