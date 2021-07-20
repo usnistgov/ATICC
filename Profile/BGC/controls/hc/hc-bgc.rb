@@ -7,10 +7,13 @@ control "HC-Ingress-BGC" do
   title "Hostname Containment Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command(input('full_fwknop_command')) do
+  describe command('fwknop') do
     it { should_not exist }
-    its('stderr') { should eq '' }
-    its('exit_status') { should eq 0 }
+  end
+
+  describe command(input('full_fwknop_command')) do
+    its('stderr') { should_not eq '' }
+    its('exit_status') { should_not eq 0 }
   end
 
   #Test Containment for Green host ICMP
@@ -71,10 +74,13 @@ control "HC-Transiting-BGC" do
   title "Hostname Containment Transiting - Bad Guy Client"
 
   # Running fwknop command
-  describe command(input('full_fwknop_command')) do
+  describe command('fwknop') do
     it { should_not exist }
-    its('stderr') { should eq '' }
-    its('exit_status') { should eq 0 }
+  end
+
+  describe command(input('full_fwknop_command')) do
+    its('stderr') { should_not eq '' }
+    its('exit_status') { should_not eq 0 }
   end
 
   #Test Containment for Green host ICMP
