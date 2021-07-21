@@ -18,13 +18,13 @@ control "NS-Ingress-GGC" do
   end
 
   # Checking if telnet is open on blue machine
-  describe port('sdp-gateway.e3lab.solutions', 23) do
+  describe port(input('blue_machine_address'), input(telnet_port)) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
 
   # Checking if ssh is open on blue machine
-  describe port('sdp-gateway.e3lab.solutions', 22) do
+  describe port(input('blue_machine_address'), input(ssh_port)) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
   end
@@ -58,22 +58,22 @@ control "NS-Transit-GGC" do
   end
 
   # ssh to authorized internal domain
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-gateway.e3lab.solutions 'exit 0'") do
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("blue_machine_address") + " 'exit 0'") do
     its('exit_status') { should eq 0}
   end
 
   # telnet to authorized internal domain
-  describe command("echo 'exit' | telnet sdp-gateway.e3lab.solutions") do
+  describe command("echo 'exit' | telnet " + input("blue_machine_address")) do
     its('exit_status') { should eq 0}
   end
 
   # ssh to unauthorized internal domain
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@sdp-attacker1.e3lab.solutions 'exit 0'") do
+  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("green_machine_address") + " 'exit 0'") do
     its('exit_status') { should_not eq 0}
   end
 
   # telnet to unauthorized internal domain
-  describe command("echo 'exit' | telnet sdp-attacker1.e3lab.solutions") do
+  describe command("echo 'exit' | telnet " + input("green_machine_address")) do
     its('exit_status') { should_not eq 0}
   end
 
