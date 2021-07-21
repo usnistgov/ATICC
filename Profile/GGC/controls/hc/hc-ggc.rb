@@ -17,53 +17,53 @@ control "HC-Ingress-GGC" do
   end
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: 57621, protocol: 'tcp') do
+  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host F-Force App
-  describe host('sdp-attacker1.e3lab.solutions', port: 8282, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host SSH
-  describe host('sdp-attacker1.e3lab.solutions', port: 2200, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host VNC
-  describe host('sdp-attacker1.e3lab.solutions', port: 5901, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host Telnet
-  describe host('sdp-attacker1.e3lab.solutions', port: 23, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: 57621, protocol: 'tcp') do
+  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host F-Force App
-  describe host('sdp-gateway.e3lab.solutions', port: 8282, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host SSH
-  describe host('sdp-gateway.e3lab.solutions', port: 2200, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host VNC
-  describe host('sdp-gateway.e3lab.solutions', port: 5901, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host Telnet
-  describe host('sdp-gateway.e3lab.solutions', port: 23, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
@@ -87,75 +87,75 @@ control "HC-Transiting-GGC" do
 
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: 57621, protocol: 'tcp') do
+  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host F-Force App
-  describe host('sdp-attacker1.e3lab.solutions', port: 8282, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host SSH
-  describe host('sdp-attacker1.e3lab.solutions', port: 2200, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host VNC
-  describe host('sdp-attacker1.e3lab.solutions', port: 5901, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Green host Telnet
-  describe host('sdp-attacker1.e3lab.solutions', port: 23, protocol: 'tcp') do
+  describe host(input('green_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
 
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: 57621, protocol: 'tcp') do
+  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host F-Force App
-  describe host('sdp-gateway.e3lab.solutions', port: 8282, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host SSH
-  describe host('sdp-gateway.e3lab.solutions', port: 2200, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host VNC
-  describe host('sdp-gateway.e3lab.solutions', port: 5901, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Blue host Telnet
-  describe host('sdp-gateway.e3lab.solutions', port: 23, protocol: 'tcp') do
+  describe host(input('blue_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
 
   #Test Containment for Resilient Controller host F-Force App
-  describe host('sdp-controller.e3lab.solutions', port: 8282, protocol: 'tcp') do
+  describe host('sdp-controller.e3lab.solutions', port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Resilient Controller host SSH
-  describe host('sdp-controller.e3lab.solutions', port: 2200, protocol: 'tcp') do
+  describe host('sdp-controller.e3lab.solutions', port: input('ssh_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Resilient Controller host VNC
-  describe host('sdp-controller.e3lab.solutions', port: 5901, protocol: 'tcp') do
+  describe host('sdp-controller.e3lab.solutions', port: input('vnc_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
   #Test Containment for Resilient Controller host Telnet
-  describe host('sdp-controller.e3lab.solutions', port: 23, protocol: 'tcp') do
+  describe host('sdp-controller.e3lab.solutions', port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end

@@ -1,6 +1,6 @@
 full_fwknop_command: "fwknop —wget-cmd /usr/bin/wget -R -n service_gate"
 blue_machine_address: "sdp-gateway.e3lab.solutions"
-green_machine_address: ""
+green_machine_address: "sdp-attacker1.e3lab.solutions"
 icmp_port: 57621
 fforce_app_port: 8282
 ssh_port: 2200
