@@ -65,7 +65,7 @@ control "AC-Egress-GGC" do
 
   # SSH to Blue Machine (authorized internal domain)
   # Clone a GitHub repository
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user@" + input("blue_machine_address") + " 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
     its('exit_status') { should eq 0 }
   end
 
@@ -87,7 +87,7 @@ control "AC-Transiting-GGC" do
 
   # Transiting steps
   # Go from Blue to Green
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("blue_machine_address") + " 'telnet " + input("green_machine_address") + " && exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'telnet " + input("green_machine_address") + " && exit 0'") do
     its('exit_status') { should eq 0 }
   end
   # describe port('sdp-attacker1.e3lab.solutions', 2200) do
@@ -96,7 +96,7 @@ control "AC-Transiting-GGC" do
   # end
 
   # Go from Green to Blue
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("green_machine_address") + " 'telnet " + input("blue_machine_address") + " && exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("green_machine_address") + " 'telnet " + input("blue_machine_address") + " && exit 0'") do
     its('exit_status') { should eq 0 }
   end
   # describe port('sdp-gateway.e3lab.solutions', 2200) do

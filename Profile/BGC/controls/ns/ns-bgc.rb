@@ -58,7 +58,7 @@ control "NS-Transit-BGC" do
   end
 
   # SHOULD FAIL: ssh to authorized internal domain
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("blue_machine_address") + " 'exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'exit 0'") do
     its('exit_status') { should_not eq 0}
   end
 
@@ -68,7 +68,7 @@ control "NS-Transit-BGC" do
   end
   
   # SHOULD FAIL: ssh to unauthoried internal domain
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("green_machine_address") + " 'exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("green_machine_address") + " 'exit 0'") do
     its('exit_status') { should_not eq 0}
   end
 
@@ -94,7 +94,7 @@ control "NS-Egress-BGC" do
   end
   
   # SHOULD FAIL: ssh to external domain
-  describe command("ssh -i <key> -o ConnectTimeout=5 <external.domain> 'exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 <external.domain> 'exit 0'") do
     its('exit_status') { should_not eq 0}
   end
 

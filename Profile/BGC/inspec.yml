@@ -39,3 +39,11 @@ inputs:
 - name: telnet_port
   description:
   type: Numeric
+
+- name: ssh_user
+  description:
+  type: Numeric
+
+- name: ssh_key
+  description:
+  type: Numeric

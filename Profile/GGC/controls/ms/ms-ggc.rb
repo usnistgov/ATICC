@@ -8,7 +8,7 @@ control "MS-Unique_Connection-GGC" do
 
   # 1.  fwknop with EACH credentials
   # 2.  telnet or ssh to EACH address
-  # 3.  traceroute to check if each connection is diffenet
+  # 3.  traceroute to check if each connection is different
 end
 
 control "MS-Restricted_Scope-GGC" do

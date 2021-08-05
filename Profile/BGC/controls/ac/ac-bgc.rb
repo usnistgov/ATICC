@@ -67,7 +67,7 @@ control "AC-Egress-BGC" do
   
   # SSH to Blue Machine (authorized internal domain)
   # Clone a GitHub repository
-  describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("blue_machine_address") + " 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
+  describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'git clone https://github.com/usnistgov/ATICC.git; exit 0'") do
     its('exit_status') { should_not eq 0 }
   end
 
@@ -90,7 +90,7 @@ control "AC-Transiting-BGC" do
   
   # Transiting steps
     # Go from Blue to Green
-    describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("blue_machine_address") + " 'exit 0'") do
+    describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'exit 0'") do
       its('exit_status') { should_not eq 0 }
     end
     # describe port('sdp-attacker1.e3lab.solutions', 2200) do
@@ -100,7 +100,7 @@ control "AC-Transiting-BGC" do
     
   
     # Go from Green to Blue
-    describe command("ssh -i <key> -o ConnectTimeout=5 <user>@" + input("green_machine_address") + " 'exit 0'") do
+    describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("green_machine_address") + " 'exit 0'") do
       its('exit_status') { should_not eq 0 }
     end
     # describe port('sdp-gateway.e3lab.solutions', 2200) do
