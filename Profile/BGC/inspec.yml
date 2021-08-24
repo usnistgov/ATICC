@@ -42,8 +42,8 @@ inputs:
 
 - name: ssh_user
   description:
-  type: Numeric
+  type: String
 
 - name: ssh_key
   description:
-  type: Numeric
+  type: String
