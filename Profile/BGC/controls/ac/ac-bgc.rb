@@ -35,13 +35,13 @@ control "AC-Ingress-BGC" do
   end
 
   #9 - VNC (Blue Machine)
-  describe port(input('blue_machine_address'), input('vnc_port'))) do
+  describe port(input('blue_machine_address'), input('vnc_port')) do
     it { should_not be_listening }
     its('protocols') { should_not include 'tcp' }
   end
 
   #10 - Telnet (Blue Machine)
-  describe port(input('blue_machine_address'), input('telnet_port'))) do
+  describe port(input('blue_machine_address'), input('telnet_port')) do
     it { should_not be_listening }
     its('protocols') { should_not include 'tcp' }
   end
