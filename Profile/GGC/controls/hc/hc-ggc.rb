@@ -17,7 +17,12 @@ control "HC-Ingress-GGC" do
   end
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should be_reachable }
+  #  it { should be_resolvable }
+  #end
+
+  describe host(input('green_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
@@ -43,7 +48,12 @@ control "HC-Ingress-GGC" do
   end
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should be_reachable }
+  #  it { should be_resolvable }
+  #end
+
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
@@ -87,7 +97,12 @@ control "HC-Transiting-GGC" do
 
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should be_reachable }
+  #  it { should be_resolvable }
+  #end
+
+  describe host(input('green_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
@@ -114,10 +129,16 @@ control "HC-Transiting-GGC" do
 
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should be_reachable }
+  #  it { should be_resolvable }
+  #end
+
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should be_reachable }
     it { should be_resolvable }
   end
+
   #Test Containment for Blue host F-Force App
   describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_reachable }
