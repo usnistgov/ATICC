@@ -17,34 +17,63 @@ control "AC-Ingress-BGC" do
   end
 
   # icmp (Blue Machine)
-  describe port('0.0.0.0', input('icmp_port')) do
-    it { should_not be_listening }
-    its('protocols') { should_not include 'tcp' }
+  #describe port('0.0.0.0', input('icmp_port')) do
+  #  it { should_not be_listening }
+  #  its('protocols') { should_not include 'tcp' }
+  #end
+  
+  # icmp (Blue Machine)
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
   end
 
   #7 - F-Force App (Blue Machine)
-  describe port(input('blue_machine_address'), input('fforce_app_port')) do
-    it { should_not be_listening }
-    its('protocols') { should_not include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
   end
 
   #8 - ssh (Blue Machine)
-  describe port(input('blue_machine_address'), input('ssh_port')) do
-    it { should_not be_listening }
-    its('protocols') { should_not include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
   end
-
+  
   #9 - VNC (Blue Machine)
-  describe port(input('blue_machine_address'), input('vnc_port')) do
-    it { should_not be_listening }
-    its('protocols') { should_not include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
   end
-
+  
   #10 - Telnet (Blue Machine)
-  describe port(input('blue_machine_address'), input('telnet_port')) do
-    it { should_not be_listening }
-    its('protocols') { should_not include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
+    it { should_not be_reachable }
+    it { should_not be_resolvable }
   end
+  ##7 - F-Force App (Blue Machine)
+  #describe port(input('blue_machine_address'), input('fforce_app_port')) do
+  #  it { should_not be_listening }
+  #  its('protocols') { should_not include 'tcp' }
+  #end
+
+  ##8 - ssh (Blue Machine)
+  #describe port(input('blue_machine_address'), input('ssh_port')) do
+  #  it { should_not be_listening }
+  #  its('protocols') { should_not include 'tcp' }
+  #end
+
+  ##9 - VNC (Blue Machine)
+  #describe port(input('blue_machine_address'), input('vnc_port')) do
+  #  it { should_not be_listening }
+  #  its('protocols') { should_not include 'tcp' }
+  #end
+
+  ##10 - Telnet (Blue Machine)
+  #describe port(input('blue_machine_address'), input('telnet_port')) do
+  #  it { should_not be_listening }
+  #  its('protocols') { should_not include 'tcp' }
+  #end
 
 
 end
@@ -108,3 +137,4 @@ control "AC-Transiting-BGC" do
     #   its('protocols') { should_not include 'tcp' }
     # end
 end
+
