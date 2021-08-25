@@ -18,15 +18,25 @@ control "NS-Ingress-GGC" do
   end
 
   # Checking if telnet is open on blue machine
-  describe port(input('blue_machine_address'), input(telnet_port)) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  #describe port(input('blue_machine_address'), input(telnet_port)) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+  describe host(input('blue_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
   # Checking if ssh is open on blue machine
-  describe port(input('blue_machine_address'), input(ssh_port)) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  #describe port(input('blue_machine_address'), input(ssh_port)) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+  describe host(input('blue_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
   # Use nmap to show destination is on seperate network
@@ -104,3 +114,4 @@ control "NS-Egress-GGC" do
   end
 
 end
+
