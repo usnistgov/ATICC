@@ -11,41 +11,75 @@ control "AC-Ingress-GGC" do
     it { should exist }
   end
 
+
   describe command(input('full_fwknop_command')) do
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
-  # icmp (Blue Machine)
-  describe port('0.0.0.0', input('icmp_port')) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
-  end
-
   #7 - F-Force App (Blue Machine)
-  describe port(input('blue_machine_address'), input('fforce_app_port')) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
   #8 - ssh (Blue Machine)
-  describe port(input('blue_machine_address'), input('ssh_port')) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
   #9 - VNC (Blue Machine)
-  describe port(input('blue_machine_address'), input('vnc_port')) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
   #10 - Telnet (Blue Machine)
-  describe port(input('blue_machine_address'), input('telnet_port')) do
-    it { should be_listening }
-    its('protocols') { should include 'tcp' }
+  describe host(input('blue_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
+  end
+  # icmp (Blue Machine)
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
+    it { should be_reachable }
+    it { should be_resolvable }
   end
 
+  # icmp (Blue Machine)
+  #describe port('0.0.0.0', input('icmp_port')) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+  #old commands
+  ##7 - F-Force App (Blue Machine)
+  #describe port(input('blue_machine_address'), input('fforce_app_port')) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+  ##8 - ssh (Blue Machine)
+  #describe port(input('blue_machine_address'), input('ssh_port')) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+
+
+  ##9 - VNC (Blue Machine)
+  #describe port(input('blue_machine_address'), input('vnc_port')) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
+
+  
+
+  ##10 - Telnet (Blue Machine)
+  #describe port(input('blue_machine_address'), input('telnet_port')) do
+  #  it { should be_listening }
+  #  its('protocols') { should include 'tcp' }
+  #end
 end
 
 control "AC-Egress-GGC" do
