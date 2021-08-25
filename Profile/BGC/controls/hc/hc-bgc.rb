@@ -17,7 +17,11 @@ control "HC-Ingress-BGC" do
   end
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should_not be_reachable }
+  #  it { should_not be_resolvable }
+  #end
+  describe host(input('green_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should_not be_reachable }
     it { should_not be_resolvable }
   end
@@ -43,7 +47,11 @@ control "HC-Ingress-BGC" do
   end
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should_not be_reachable }
+  #  it { should_not be_resolvable }
+  #end
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should_not be_reachable }
     it { should_not be_resolvable }
   end
@@ -84,7 +92,11 @@ control "HC-Transiting-BGC" do
   end
 
   #Test Containment for Green host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should_not be_reachable }
+  #  it { should_not be_resolvable }
+  #end
+  describe host(input('green_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should_not be_reachable }
     it { should_not be_resolvable }
   end
@@ -110,7 +122,11 @@ control "HC-Transiting-BGC" do
   end
 
   #Test Containment for Blue host ICMP
-  describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
+  #  it { should_not be_reachable }
+  #  it { should_not be_resolvable }
+  #end
+  describe host(input('blue_machine_address'), port: input('icmp_port'), protocol: 'tcp') do
     it { should_not be_reachable }
     it { should_not be_resolvable }
   end
