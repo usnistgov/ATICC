@@ -7,12 +7,12 @@ control "AC-Ingress-BGC" do
   title "Access Control Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
@@ -83,12 +83,12 @@ control "AC-Egress-BGC" do
   title "Access Control Egress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
@@ -108,12 +108,12 @@ control "AC-Transiting-BGC" do
   title "Access Control Transiting - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
   
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
   
