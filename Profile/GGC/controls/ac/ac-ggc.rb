@@ -13,7 +13,7 @@ control "AC-Ingress-GGC" do
 
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should eq '' }
+    # its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
@@ -91,7 +91,7 @@ control "AC-Egress-GGC" do
     it { should exist }
   end
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should eq '' }
+    #its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
@@ -115,7 +115,7 @@ control "AC-Transiting-GGC" do
   end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should eq '' }
+    #its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end
 
