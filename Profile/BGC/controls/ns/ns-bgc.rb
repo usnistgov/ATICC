@@ -8,12 +8,12 @@ control "NS-Ingress-BGC" do
   title "Network Segmentation Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
@@ -58,12 +58,12 @@ control "NS-Transit-BGC" do
   title "Network Segmentation Transit - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
@@ -94,12 +94,12 @@ control "NS-Egress-BGC" do
   title "Network Segmentation Egress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
   
