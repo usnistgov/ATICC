@@ -7,12 +7,12 @@ control "HC-Ingress-BGC" do
   title "Hostname Containment Ingress - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
@@ -82,12 +82,12 @@ control "HC-Transiting-BGC" do
   title "Hostname Containment Transiting - Bad Guy Client"
 
   # Running fwknop command
-  describe command('fwknop') do
-    it { should_not exist }
-  end
+  #describe command('fwknop') do
+  #  it { should_not exist }
+  #end
 
   describe command(input('full_fwknop_command')) do
-    its('stderr') { should_not eq '' }
+    #its('stderr') { should_not eq '' }
     its('exit_status') { should_not eq 0 }
   end
 
