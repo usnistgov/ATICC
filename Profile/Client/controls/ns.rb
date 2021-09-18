@@ -7,16 +7,6 @@ control "NS-Ingress-GGC" do
   impact 0.7
   title "Network Segmentation Ingress - Good Guy Client"
 
-  # Running fwknop command
-  describe command('fwknop') do
-    it { should exist }
-  end
-
-  describe command(input('full_fwknop_command')) do
-    #its('stderr') { should eq '' }
-    its('exit_status') { should eq 0 }
-  end
-
   # Checking if telnet is open on blue machine
   #describe port(input('blue_machine_address'), input(telnet_port)) do
   #  it { should be_listening }
@@ -57,16 +47,6 @@ control "NS-Transit-GGC" do
   impact 0.7
   title "Network Segmentation Transit - Good Guy Client"
 
-  # Running fwknop command
-  describe command('fwknop') do
-    it { should exist }
-  end
-
-  describe command(input('full_fwknop_command')) do
-    #its('stderr') { should eq '' }
-    its('exit_status') { should eq 0 }
-  end
-
   # ssh to authorized internal domain
   describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'exit 0'") do
     its('exit_status') { should eq 0}
@@ -92,16 +72,6 @@ end
 control "NS-Egress-GGC" do
   impact 0.7
   title "Network Segmentation Egress - Good Guy Client"
-
-  # Running fwknop command
-  describe command('fwknop') do
-    it { should exist }
-  end
-
-  describe command(input('full_fwknop_command')) do
-    #its('stderr') { should eq '' }
-    its('exit_status') { should eq 0 }
-  end
 
   # ssh to external domain
   describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 <external.domain> 'exit 0'") do
