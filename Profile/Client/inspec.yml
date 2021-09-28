@@ -10,42 +10,52 @@ supports:
 inputs:
 - name: full_fwknop_command
   description:
+  sensetive:
   type: String
 
 - name: blue_machine_address
-  description:
+  description
+  sensetive:
   type: String
 
 - name: green_machine_address
   description:
+  sensetive:
   type: String
 
 - name: icmp_port
-  description:
+  description: The default port used for ICMP
+  sensetive: false
   type: Numeric
 
 - name: fforce_app_port
   description:
+  sensetive: false
   type: Numeric
 
 - name: ssh_port
   description:
+  sensetive: false
   type: Numeric
 
 - name: vnc_port
   description:
+  sensetive: false
   type: Numeric
 
 - name: telnet_port
-  description:
+  description: The default port used for the Telnet Protocol
+  sensetive: false
   type: Numeric
 
 - name: ssh_user
   description:
+  sensetive: false
   type: String
 
 - name: ssh_key
   description:
+  sensetive: true
   type: String
 
 - name: authenticated
