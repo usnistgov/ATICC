@@ -14,7 +14,7 @@ inputs:
   type: String
 
 - name: blue_machine_address
-  description
+  description:
   sensetive:
   type: String
 
@@ -57,7 +57,3 @@ inputs:
   description:
   sensetive: true
   type: String
-
-- name: authenticated
-  description: 
-  type: Boolean

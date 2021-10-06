@@ -2,7 +2,11 @@
 
 title "Active Access Control Tests for a Good Guy Client"
 
-control "AC-Ingress-GGC" do
+control "AC-Ingress Unauthenticated" do
+  tag "Unauthenticated"
+end
+
+control "AC-Ingress Authenticated" do
   impact 0.7
   title "Access Control Ingress - Good Guy Client"
   desc "Justification","...."
@@ -11,6 +15,7 @@ control "AC-Ingress-GGC" do
   tag "TIC Version":"3.0"
   tag "Access Control"
   tag "Ingress"
+  tag "Authenticated"
 
   #7 - F-Force App (Blue Machine)
   describe host(input('blue_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
