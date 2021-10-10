@@ -4,6 +4,14 @@ maintainer: NIST
 summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile to be run against the SDP controller in order to test the configuration.
 version: 0.1.0
 inputs:
+  - name: sdpcontroller_mysql_username
+    description: The username of the MySQL server used by the SDP Controller
+    sensitive: true
+    type: String
+  - name: sdpcontroller_mysql_password
+    description: The password of the MySQL server used by the SDP Controller
+    sensitive: true
+    type: String
   - name: prod_machine_address
     description: The address of a machine in the production (green) zone
     type: String
