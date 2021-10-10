@@ -1,11 +1,8 @@
-# coding: utf-8
-# copyright: 2021, The Hackers
+title "Network Segmentation Tests for a Authenticated Client"
 
-title "Network Segmentation Tests for a Good Guy Client"
-
-control "NS-Ingress-GGC" do
+control "NS-Ingress-Authenticated" do
   impact 0.7
-  title "Network Segmentation Ingress - Good Guy Client"
+  title "Network Segmentation Ingress - Authenticated Client"
 
   # Checking if telnet is open on blue machine
   #describe port(input('blue_machine_address'), input(telnet_port)) do
@@ -43,9 +40,9 @@ control "NS-Ingress-GGC" do
 
 end
 
-control "NS-Transit-GGC" do
+control "NS-Transit-Authenticated" do
   impact 0.7
-  title "Network Segmentation Transit - Good Guy Client"
+  title "Network Segmentation Transit - Authenticated Client"
 
   # ssh to authorized internal domain
   describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 " + input("ssh_user") + "@" + input("blue_machine_address") + " 'exit 0'") do
@@ -69,9 +66,9 @@ control "NS-Transit-GGC" do
 
 end
 
-control "NS-Egress-GGC" do
+control "NS-Egress-Authenticated" do
   impact 0.7
-  title "Network Segmentation Egress - Good Guy Client"
+  title "Network Segmentation Egress - Authenticated Client"
 
   # ssh to external domain
   describe command("ssh -i " + input("ssh_key") + " -o ConnectTimeout=5 <external.domain> 'exit 0'") do

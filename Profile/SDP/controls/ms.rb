@@ -1,5 +1,3 @@
-# copyright: 2021, The Hackers
-
 title "Active Micro-Segmentation Tests for the SDP Controller"
 
 control "MS-Unique_Connection-SDP" do

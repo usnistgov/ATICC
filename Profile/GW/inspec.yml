@@ -11,27 +11,18 @@ inputs:
 - name: blue_machine_address
   description:
   type: String
-
 - name: green_machine_address
   description:
   type: String
-
-- name: icmp_port
-  description:
-  type: Numeric
-
 - name: fforce_app_port
   description:
   type: Numeric
-
 - name: ssh_port
   description:
   type: Numeric
-
 - name: vnc_port
   description:
   type: Numeric
-
 - name: telnet_port
   description:
   type: Numeric

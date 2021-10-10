@@ -1,37 +1,28 @@
-name: Profile
-title: InSpec Profile
-maintainer: The Hackers
-copyright: The Hackers
-license: Apache-2.0
-summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile.
+name: sdp
+title: SDP Controller ATICC Profile
+maintainer: NIST
+summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile to be run against the SDP controller in order to test the configuration.
 version: 0.1.0
-supports:
-  platform: os
 inputs:
-- name: blue_machine_address
-  description:
-  type: String
-
-- name: green_machine_address
-  description:
-  type: String
-
-- name: icmp_port
-  description:
-  type: Numeric
-
-- name: fforce_app_port
-  description:
-  type: Numeric
-
-- name: ssh_port
-  description:
-  type: Numeric
-
-- name: vnc_port
-  description:
-  type: Numeric
-
-- name: telnet_port
-  description:
-  type: Numeric
+  - name: prod_machine_address
+    description: The address of a machine in the production (green) zone
+    type: String
+  - name: dev_machine_address
+    description: The address of a machine in the production (green) zone
+    type: String
+  - name: fforce_app_port
+    description: The port used for the FForce App
+    type: Numeric
+    value: 8282
+  - name: ssh_port
+    description: The port used for SSH connections
+    type: Numeric
+    value: 22
+  - name: vnc_port
+    description: The port used for VNC connections
+    type: Numeric
+    value: 5901
+  - name: telnet_port
+    description: The port used for Telnet connections
+    type: Numeric
+    value: 23

@@ -1,6 +1,3 @@
-# copyright: 2021, The Hackers
-
-title "Hostname Containment Tests for a Authenticated Client"
 
 control "HC-Ingress-AC" do
   impact 0.7
@@ -12,16 +9,6 @@ control "HC-Ingress-AC" do
   tag "Hostname Containment"
   tag "Ingress"
   tag "Authenticated"
-
-  # Running fwknop command
-  #describe command('fwknop') do
-  #  it { should exist }
-  #end3
-
-  #describe command(input('full_fwknop_command')) do
-  #  its('stderr') { should eq '' }
-  #  its('exit_status') { should eq 0 }
-  #end
 
   #Test Containment for Green host ICMP
   describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
@@ -97,16 +84,6 @@ control "HC-Transiting-AC" do
   tag "Hostname Containment"
   tag "Transiting"
   tag "Authenticated"
-
-  # Running fwknop command
-  #describe command('fwknop') do
-  #  it { should exist }
-  #end
-
-  #describe command(input('full_fwknop_command')) do
-  #  its('stderr') { should eq '' }
-  #  its('exit_status') { should eq 0 }
-  #end
 
 
   #Test Containment for Green host ICMP
@@ -210,16 +187,6 @@ control "HC-Ingress-UC" do
   tag "Ingress"
   tag "Unauthenticated"
 
-  # Running fwknop command
-  #describe command('fwknop') do
-  #  it { should_not exist }
-  #end
-
-  #describe command(input('full_fwknop_command')) do
-  #  its('stderr') { should_not eq '' }
-  #  its('exit_status') { should_not eq 0 }
-  #end
-
   #Test Containment for Green host ICMP
   describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do
     it { should_not be_reachable }
@@ -283,16 +250,6 @@ control "HC-Transiting-UC" do
   tag "Hostname Containment"
   tag "Transiting"
   tag "Unauthenticated"
-
-  # Running fwknop command
-  #describe command('fwknop') do
-  #  it { should_not exist }
-  #end
-
-  #describe command(input('full_fwknop_command')) do
-  #  its('stderr') { should_not eq '' }
-  #  its('exit_status') { should_not eq 0 }
-  #end
 
   #Test Containment for Green host ICMP
   describe host('0.0.0.0', port: input('icmp_port'), protocol: 'tcp') do

@@ -5,8 +5,8 @@ This example shows the implementation of an InSpec profile.
 
 Controls Architecture:
 - 4 Profiles for each section of the TIC 3.0 Network PEP Requirements:
-    1. Tests on the Good Guy Client (GGC)
-    2. Tests on the Bad Guy Client (GBC)
+    1. Tests on the Authenticated Client (Authenticated)
+    2. Tests on the Authenticated Client (GBC)
     3. Tests on the SDP Controller (SDP)
     4. *Tests on the SDP Gateway (GW)
 - TIC Sections:

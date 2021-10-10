@@ -1,15 +1,14 @@
-name: client
-title: Client ATICC Profile
+name: internal_machine
+title: Internal Machine ATICC Profile
 maintainer: NIST
-summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile to be run against an fwknop client in order to test ingress actions.
+summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile to be run against an internal machine in order to test egress and transiting network actions.
 version: 0.1.0
 inputs:
-  - name: prod_machine_address
-    description: The address of a machine in the production (green) zone
+  - name: different_zone_machine
+    description: Address of a machine expected to be seperated from the current machine
     type: String
-  - name: dev_machine_address
-    description: The address of a machine in the production (green) zone
-    type: String
+  - name: external_address
+    description: The address that will be used to test egress actions
   - name: fforce_app_port
     description: The port used for the FForce App
     type: Numeric
