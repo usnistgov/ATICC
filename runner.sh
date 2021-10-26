@@ -51,6 +51,7 @@ while getopts ":hs:k:u:d:o:f:" opt; do
     case ${opt} in
         h)
             print_usage
+            exit 0
             ;;
         s)
             sdpclient_secrets_dir=${OPTARG}
@@ -100,7 +101,7 @@ function run_profile {
             ;;
     esac
 
-    docker exec ${inspec_container_handle} exec /profiles/$3 \
+    docker exec ${inspec_container_handle} inspec exec /profiles/$3 \
         --input-file /profiles/input_file.yml \
         ${target_args} \
         --reporter json:/output/${3}${4:+"-$4"}.json \
@@ -138,7 +139,7 @@ sdpclient_container_handle=$(docker run --rm -d \
     -v ${sdpclient_secrets_dir}:/root/.config \
     ${sdpclient_image} tail -f /dev/null)
 # spin up inspec container
-inspec_container_handle=$(docker run --rm -d \
+inspec_container_handle=$(docker run --rm -d -it \
     -v ${script_dir}/Profiles:/profiles \
     -v ${out_dir}:/output \
     -v ${ssh_key_path}:/share/key \
