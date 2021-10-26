@@ -3,6 +3,7 @@ title "Network Segmentation Tests for Gateway"
 control "NS-Ingress Unauthenticated" do
   impact 0.7
   title "Network Segmentation Ingress - Unauthenticated Client"
+  desc "Network Segmentation through the gateway enforces that the subnetworks divide up the the logical parts of the overall network."
 
   tag "Capability":"Network"
   tag "TIC Version":"3.0"
@@ -18,6 +19,7 @@ end
 control "NS-Ingress Authenticated" do
   impact 0.7
   title "Network Segmentation Ingress - Authenticated Client"
+  desc "Network Segmentation through the gateway enforces that the subnetworks divide up the the logical parts of the overall network."
 
   tag "Capability":"Network"
   tag "TIC Version":"3.0"
