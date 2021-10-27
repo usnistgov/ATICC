@@ -19,11 +19,13 @@ function prompt_confirm {
     done
 }
 
+# print message to stderr
 # via https://betterdev.blog/minimal-safe-bash-script-template/
 function msg {
     echo >&2 -e "${1-}"
 }
 
+# print message to standard error, then exit with a code
 # https://betterdev.blog/minimal-safe-bash-script-template/
 function die {
     local msg=$1
@@ -66,6 +68,41 @@ function print_usage {
     return 0
 }
 
+function build_sdpclient_image {
+    prompt_confirm "Image with tag ${sdpclient_image} does not exist, build new sdpclient image?" \
+        || die "User canceled building ${sdpclient_image} docker container"
+
+    docker build -f ${script_dir}/build/sdpclient_base_dockerfile -t ${sdpclient_image} ${script_dir}
+}
+
+function setup {
+    # confirm image exists
+    docker image inspect ${sdpclient_image} > /dev/null 2>&1 || build_sdpclient_image
+    docker image inspect ${inspec_image} > /dev/null 2>&1 || docker pull {inspec_image}
+
+    # create output directory
+    mkdir -p ${out_dir}
+
+    msg "Spinning up SDP client container..."
+    # having it tail /dev/null is a good way to keep it runing forever without complaining
+    sdpclient_container_handle=$(docker run --rm -d \
+        -v ${sdpclient_secrets_dir}:/root/.config \
+        ${sdpclient_image} tail -f /dev/null)
+
+    msg "Spinning up inspec container..."
+    # must have -it to allow entering ssh keys
+    inspec_container_handle=$(docker run --rm -d -it \
+        -v ${script_dir}/Profile:/profiles \
+        -v ${out_dir}:/output \
+        -v ${ssh_key_path}:/share/key \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        --entrypoint /bin/bash \
+        ${inspec_image})
+
+    # prevent dangling container
+    trap cleanup SIGINT SIGTERM ERR EXIT
+}
+
 function cleanup {
     # unset trap
     trap - SIGINT SIGTERM ERR EXIT
@@ -78,36 +115,6 @@ function cleanup {
     msg "Clean credential set"
     ssh -i ${ssh_key_path} ${ssh_username}@${sdp_controller_address} mysql --user=${mysql_username} \
         --password=${mysql_password} sdp < ${script_dir}/sql_queries/clean-host.sql
-}
-
-function setup {
-    # confirm image exists
-    docker image inspect ${sdpclient_image} > /dev/null 2>&1 || build_image
-    docker image inspect ${inspec_image} > /dev/null 2>&1 || docker pull {inspec_image}
-
-    # create output directory
-    mkdir -p ${out_dir}
-
-    msg "Spinning up SDP client container..."
-
-    # spin up sdpclient container
-    # having it tail /dev/null is a good way to keep it runing forever without complaining
-    sdpclient_container_handle=$(docker run --rm -d \
-        -v ${sdpclient_secrets_dir}:/root/.config \
-        ${sdpclient_image} tail -f /dev/null)
-
-    msg "Spinning up inspec container..."
-    # spin up inspec container
-    inspec_container_handle=$(docker run --rm -d -it \
-        -v ${script_dir}/Profile:/profiles \
-        -v ${out_dir}:/output \
-        -v ${ssh_key_path}:/share/key \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        --entrypoint /bin/bash \
-        ${inspec_image})
-
-    # prevent dangling container
-    trap cleanup SIGINT SIGTERM ERR EXIT
 }
 
 function parse_params {
@@ -159,12 +166,6 @@ function parse_params {
     [ -z "$mysql_password" ] && die "MySQL password (-p) option must be set"
 
     return 0
-}
-
-function build_image {
-    prompt_confirm "Image with tag ${sdpclient_image} does not exist, build new sdpclient image?" || exit 0
-
-    docker build -f ${script_dir}/build/sdpclient_base_dockerfile -t ${sdpclient_image} ${script_dir}
 }
 
 # Run profile
