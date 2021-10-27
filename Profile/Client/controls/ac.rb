@@ -10,22 +10,22 @@ control "AC-Ingress Unauthenticated" do
   tag "Ingress"
   tag "Unauthenticated"
 
-  describe host(input('production_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
@@ -41,22 +41,22 @@ control "AC-Ingress Authenticated" do
   tag "Ingress"
   tag "Authenticated"
 
-  describe host(input('production_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should be_reachable }
   end
 
-  describe host(input('production_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
+  describe host(input('prod_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should be_reachable }
   end

@@ -40,6 +40,7 @@ control "NS-Egress" do
   tag "TIC Version":"3.0"
   tag "Network Segmentation"
   tag "Egress"
+  tag "NoState"
 
   describe iptables(chain:'OUTPUT') do
     it { should have_rule('-P OUTPUT DROP') }
