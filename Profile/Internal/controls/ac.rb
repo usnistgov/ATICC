@@ -1,5 +1,4 @@
 title "Access Control Tests for Internal Machine"
-desc "Access control protections prevent the ingest, egress, or transiting of unauthorized network traffic"
 
 control "AC-Egress" do
   impact 0.7
@@ -9,7 +8,7 @@ control "AC-Egress" do
   tag "TIC Version":"3.0"
   tag "Access Control"
   tag "Egress"
-  
+
   describe host(input('external_address'), port: 80, protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
@@ -24,12 +23,12 @@ control "AC-Transiting" do
   tag "TIC Version":"3.0"
   tag "Access Control"
   tag "Egress"
-  
+
   describe host(input('different_zone_machine'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
-  
+
   describe host(input('different_zone_machine'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
@@ -39,7 +38,7 @@ control "AC-Transiting" do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
-  
+
   describe host(input('different_zone_machine'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }

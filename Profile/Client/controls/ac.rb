@@ -1,5 +1,4 @@
 title "Access Control Tests for an Authenticated Client"
-desc "Access control protections prevent the ingest, egress, or transiting of unauthorized network traffic."
 
 control "AC-Ingress Unauthenticated" do
   impact 0.7
@@ -15,17 +14,17 @@ control "AC-Ingress Unauthenticated" do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
-  
+
   describe host(input('production_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
-  
+
   describe host(input('production_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
-  
+
   describe host(input('production_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
