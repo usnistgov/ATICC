@@ -1,4 +1,4 @@
-title "Access Control Tests for an Authenticated Client"
+title "Access Control Client Tests"
 
 control "AC-Ingress Unauthenticated" do
   impact 0.7

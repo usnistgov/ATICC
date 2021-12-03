@@ -4,3 +4,4 @@ fforce_app_port: 8282
 ssh_port: 2200
 vnc_port: 5901
 telnet_port:  23
+external_address: "github.com"

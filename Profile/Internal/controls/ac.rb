@@ -24,22 +24,22 @@ control "AC-Transiting" do
   tag "Access Control"
   tag "Egress"
 
-  describe host(input('different_zone_machine'), port: input('fforce_app_port'), protocol: 'tcp') do
+  describe host(input('dev_machine_address'), port: input('fforce_app_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
 
-  describe host(input('different_zone_machine'), port: input('telnet_port'), protocol: 'tcp') do
+  describe host(input('dev_machine_address'), port: input('telnet_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
   
-  describe host(input('different_zone_machine'), port: input('ssh_port'), protocol: 'tcp') do
+  describe host(input('dev_machine_address'), port: input('ssh_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end
 
-  describe host(input('different_zone_machine'), port: input('vnc_port'), protocol: 'tcp') do
+  describe host(input('dev_machine_address'), port: input('vnc_port'), protocol: 'tcp') do
     it { should be_resolvable }
     it { should_not be_reachable }
   end

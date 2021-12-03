@@ -1,18 +1,21 @@
 title "Network Segmentation Tests for Gateway"
 
-control "NS-Ingress Unauthenticated" do
+control "NS/IP-Ingress Unauthenticated" do
   impact 0.7
-  title "Network Segmentation Ingress - Unauthenticated Client"
+  title "Network Segmentation/IP Denylisting Ingress - Unauthenticated Client"
   desc "Network Segmentation through the gateway enforces that the subnetworks divide up the the logical parts of the overall network."
+  desc "IP Denylisting Protections prevent the ingest of traffic from a denylisted (external) IP address"
 
   tag "Capability":"Network"
   tag "TIC Version":"3.0"
   tag "Network Segmentation"
+  tag "IP Denylisting"
   tag "Ingress"
   tag "Unauthenticated"
 
   describe iptables(chain:'INPUT') do
     it { should_not have_rule('-P INPUT ACCEPT') }
+    it { should have_rule('-P INPUT DROP') }
   end
 end
 
@@ -32,14 +35,17 @@ control "NS-Ingress Authenticated" do
   end
 end
 
-control "NS-Egress" do
+control "NS/IP-Egress" do
   impact 0.7
-  title "Network Segmentation Egress"
+  title "Network Segmentation/IP Denylisting Egress"
+  desc "Network Segmentation protections though the gateway enforces that there is sufficient seperation between the internal and external network."
+  desc "IP Denylisting protections prevent the egress of traffic from a denylisted (external) IP address"
 
   tag "Capability":"Network"
   tag "TIC Version":"3.0"
   tag "Network Segmentation"
   tag "Egress"
+  tag "IP Denylisting"
   tag "NoState"
 
   describe iptables(chain:'OUTPUT') do

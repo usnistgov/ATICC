@@ -50,6 +50,9 @@ sdp_gw_address=sdp-gateway.e3lab.solutions
 sdp_controller_address=sdp-controller.e3lab.solutions
 internal_zone=sdp-attacker.e3lab.solutions
 
+# when set to a value, the cleanup function will undo 
+db_transaction_trap=""
+
 function print_usage {
     echo "Usage: ${script_name} [OPTION]..."
     echo "Runner for ATICC project InSpec Profiles"
@@ -112,9 +115,9 @@ function cleanup {
     docker stop ${sdpclient_container_handle} > /dev/null
     docker stop ${inspec_container_handle} > /dev/null
 
-    msg "Clean credential set"
-    ssh -i ${ssh_key_path} ${ssh_username}@${sdp_controller_address} mysql --user=${mysql_username} \
-        --password=${mysql_password} sdp < ${script_dir}/sql_queries/clean-host.sql
+    [ -n "$db_transaction_trap" ] && msg "Clean credential set" && ssh \
+        -i ${ssh_key_path} ${ssh_username}@${sdp_controller_address} \
+            mysql --user=${mysql_username} --password=${mysql_password} sdp < ${script_dir}/sql_queries/clean-host.sql
 }
 
 function parse_params {
@@ -200,6 +203,8 @@ function stateless_stage {
     run_profile ssh ${sdp_gw_address} GW NoState
     # Akash MS sql uniqueness test
     run_profile ssh ${sdp_controller_address} SDP NoState
+    # Internal AC egress test
+    run_profile ssh ${internal_zone} Internal
 }
 
 function unauthenticated_stage {
@@ -222,6 +227,7 @@ function authenticated_stage {
 
 function invalidated_stage {
     msg "Invalidating credential set"
+    db_transaction_trap=1
     ssh -i ${ssh_key_path} ${ssh_username}@${sdp_controller_address} \
         mysql --user=${mysql_username} --password=${mysql_password} \
             sdp < ${script_dir}/sql_queries/contaminate-host.sql
