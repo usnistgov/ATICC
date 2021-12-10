@@ -30,8 +30,7 @@ control "NS-Ingress Authenticated" do
   tag "Ingress"
   tag "Authenticated"
 
-  describe command('iptables -S | grep -q "^\-A FWKNOP_INPUT \-s ' + input('public_ip').gsub! '.', '\.' + '\/32 \-p tcp"') do
-    it { should exist }
+  describe command('iptables -S | grep -q "^\-A FWKNOP_INPUT \-s ' + input('public_ip').gsub('.', '\.') + '\/32 \-p tcp"') do
     its('exit_status') { should eq 0 }
   end
 end
