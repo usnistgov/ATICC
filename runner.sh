@@ -44,7 +44,7 @@ ssh_username=""
 mysql_username="root"
 mysql_password=""
 sdpclient_image="sdpclient"
-fwknop_command="fwknop --rc-file /root/.config/.fwknoprc —-wget-cmd /usr/bin/wget -R -n service_gate"
+fwknop_command="fwknop --rc-file /root/.config/.fwknoprc -n service_gate"
 
 sdp_gw_address=sdp-gateway.e3lab.solutions
 sdp_controller_address=sdp-controller.e3lab.solutions
@@ -180,7 +180,7 @@ function run_profile {
             target_args="-t docker://${2}"
             ;;
         ssh)
-            target_args="--key-files /share/key -t ssh://${ssh_username}@${2}"
+            target_args="--key-files /share/key -t ssh://${ssh_username}@${2} --sudo"
             ;;
     esac
 
