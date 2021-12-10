@@ -48,9 +48,9 @@ fwknop_command="fwknop --rc-file /root/.config/.fwknoprc -n service_gate"
 
 sdp_gw_address=sdp-gateway.e3lab.solutions
 sdp_controller_address=sdp-controller.e3lab.solutions
-internal_zone=sdp-attacker.e3lab.solutions
+internal_zone=sdp-attacker1.e3lab.solutions
 
-# when set to a value, the cleanup function will undo 
+# when set to a value, the cleanup function will undo
 db_transaction_trap=""
 
 function print_usage {
