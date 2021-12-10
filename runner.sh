@@ -46,6 +46,8 @@ mysql_password=""
 sdpclient_image="sdpclient"
 fwknop_command="fwknop --rc-file /root/.config/.fwknoprc -n service_gate"
 
+public_ip=""
+
 sdp_gw_address=sdp-gateway.e3lab.solutions
 sdp_controller_address=sdp-controller.e3lab.solutions
 internal_zone=sdp-attacker1.e3lab.solutions
@@ -79,6 +81,9 @@ function build_sdpclient_image {
 }
 
 function setup {
+    # get public ip address
+    public_ip=$(curl ifconfig.me)
+
     # confirm image exists
     docker image inspect ${sdpclient_image} > /dev/null 2>&1 || build_sdpclient_image
     docker image inspect ${inspec_image} > /dev/null 2>&1 || docker pull {inspec_image}
@@ -190,6 +195,7 @@ function run_profile {
         --input=sdpcontroller_mysql_password="${mysql_password}" \
             sdpcontroller_mysql_username="${mysql_username}" \
             fwknop_command="${fwknop_command}" \
+            public_ip="${public_ip}" \
         ${target_args} \
         --reporter=cli json:/output/${3}${4:+"-$4"}.json \
         ${4:+"--tags=$4"} \

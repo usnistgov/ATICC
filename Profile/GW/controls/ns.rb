@@ -30,8 +30,9 @@ control "NS-Ingress Authenticated" do
   tag "Ingress"
   tag "Authenticated"
 
-  describe iptables(chain:'INPUT') do
-    it { should have_rule('-P INPUT ACCEPT') }
+  describe command('iptables -S | grep -q "^\-A FWKNOP_INPUT \-s ' + input('public_ip').gsub! '.', '\.' + '\/32 \-p tcp"') do
+    it { should exist }
+    its('exit_status') { should eq 0 }
   end
 end
 

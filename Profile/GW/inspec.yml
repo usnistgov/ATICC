@@ -26,3 +26,6 @@ inputs:
 - name: telnet_port
   description:
   type: Numeric
+- name: public_ip
+  description: The public IP address that the client connects from for authenticated controls
+  type: String
