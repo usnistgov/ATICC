@@ -6,8 +6,5 @@
 ## The Goal of this project is
 Design and implement a dashboard and test suite that assesses the Software Define Perimeter (SDP) environment's compliance against the TIC 3.0 requirements.
 
-## Installation Process
-For Installation Instructions for either part, please refer to the README's in each folder
-
 ## Contact Information
 TBD

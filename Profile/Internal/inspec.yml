@@ -1,0 +1,27 @@
+name: internal_machine
+title: Internal Machine ATICC Profile
+maintainer: NIST
+summary: An Open SDP TIC 3.0 Network PEP Capabilites Profile to be run against an internal machine in order to test egress and transiting network actions.
+version: 0.1.0
+inputs:
+  - name: dev_machine_address
+    description: Address of a machine expected to be seperated from the current machine
+    type: String
+  - name: external_address
+    description: The address that will be used to test egress actions
+  - name: fforce_app_port
+    description: The port used for the FForce App
+    type: Numeric
+    value: 8282
+  - name: ssh_port
+    description: The port used for SSH connections
+    type: Numeric
+    value: 22
+  - name: vnc_port
+    description: The port used for VNC connections
+    type: Numeric
+    value: 5901
+  - name: telnet_port
+    description: The port used for Telnet connections
+    type: Numeric
+    value: 23

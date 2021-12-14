@@ -8,30 +8,24 @@ version: 0.1.0
 supports:
   platform: os
 inputs:
-- name: blue_machine_address
+- name: prod_machine_address
   description:
   type: String
-
-- name: green_machine_address
+- name: dev_machine_address
   description:
   type: String
-
-- name: icmp_port
-  description:
-  type: Numeric
-
 - name: fforce_app_port
   description:
   type: Numeric
-
 - name: ssh_port
   description:
   type: Numeric
-
 - name: vnc_port
   description:
   type: Numeric
-
 - name: telnet_port
   description:
   type: Numeric
+- name: public_ip
+  description: The public IP address that the client connects from for authenticated controls
+  type: String
